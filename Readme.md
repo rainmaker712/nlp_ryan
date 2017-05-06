@@ -1,7 +1,8 @@
 # To-Do
 
 ## Text Classificaiton for Korean / English
- - d
+ - English
+  - Seq
 
 ## Machine Comprehension
 

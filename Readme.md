@@ -15,6 +15,9 @@
 * Korean
 
 ## Machine Comprehension
+ * Dataset
+   * [The Stanford Question Answering Dataset - SQuAD](https://rajpurkar.github.io/SQuAD-explorer/)
+   * [MS MACRO Dataset -Dataset for Deep Learning NLP](http://www.msmarco.org/)
  * English
    * [Bi-directional Attention Flow for Machine Comprehension - Minjoon Seo](https://github.com/allenai/bi-att-flow)
    * [BM25](https://github.com/nhirakawa/BM25)
@@ -22,6 +25,11 @@
 
 ## NLP Basic
 
+## Word Embedding
+ * Dataset
+   * [Fasttext (Eng, Kor, etc) - Facebook](https://github.com/facebookresearch/fastText)
+   * [Glove: Pre-trained Model - Stanford](https://nlp.stanford.edu/projects/glove/)
+   * [Word2Vec: Pre-trained model from Google News (100 billion words)](https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/edit)
 
 <hr/>
 

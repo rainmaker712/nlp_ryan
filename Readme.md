@@ -1,8 +1,14 @@
 # To-Do
 
-## Text Classificaiton for Korean / English
- - English
-  - Seq
+## Text Classificaiton for Korean
+
+- English
+  - [Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras](http://machinelearningmastery.com/sequence-classification-lstm-recurrent-neural-networks-python-keras/)
+  - [Text Classificaion Using CNN with Keras](https://richliao.github.io/supervised/classification/2016/11/26/textclassifier-convolutional/)
+  - [Text Classificaiton Using sentence level Attentional RNN](https://richliao.github.io/supervised/classification/2016/12/26/textclassifier-RNN/)
+  - [Text Classification Using Hierarchical attention network](https://richliao.github.io/supervised/classification/2016/12/26/textclassifier-HATN/)
+  
+- Korean
 
 ## Machine Comprehension
 
@@ -11,6 +17,7 @@
 
 
 # 참고자료
+
  ## Data Preprocessing
   - [Chris ALBon: Python/R](https://chrisalbon.com/)
  

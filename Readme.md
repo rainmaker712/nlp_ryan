@@ -29,6 +29,8 @@
   - [Chris ALBon: Python/R](https://chrisalbon.com/)
  
  ## Machine Learning / Deep Learning
+  - [Deep Learning Zero To All: Sung Kim](https://github.com/hunkim/DeepLearningZeroToAll)
+  - [Deep Learning Tutorial for 10 weeks- sjchoi86](https://github.com/sjchoi86/dl_tutorials_10weeks)
   - [Step-by-Step Guide: ML Python](http://machinelearningmastery.com/start-here/)
   
  ## Natural Language Procesing 

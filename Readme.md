@@ -1,4 +1,4 @@
-# To-Do
+# *To-Do*
 
 ## Text Classificaiton for Korean
 
@@ -15,8 +15,9 @@
 ## NLP Library Platform 
 
 
+<hr/>
 
-# 참고자료
+# *참고자료*
 
  ## Data Preprocessing
   - [Chris ALBon: Python/R](https://chrisalbon.com/)

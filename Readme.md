@@ -1,5 +1,7 @@
 # Deep Learning NLP Tutorial from Scratch
 
+*Feedback: sungjin7127@gmail.com*
+
 # *To-Do*
 
 ## Text Classificaiton for Korean
@@ -18,9 +20,18 @@
  * Dataset
    * [The Stanford Question Answering Dataset - SQuAD](https://rajpurkar.github.io/SQuAD-explorer/)
    * [MS MACRO Dataset -Dataset for Deep Learning NLP](http://www.msmarco.org/)
- * English
+   * [NewsQA: A Machine Comprehension Dataset - Maluuba Research (Aquired by MS in 2017)](https://datasets.maluuba.com/NewsQA)
+   
+ * Source Code - English
    * [Bi-directional Attention Flow for Machine Comprehension - Minjoon Seo](https://github.com/allenai/bi-att-flow)
    * [BM25](https://github.com/nhirakawa/BM25)
+   * [Machine Learning Knowledge Exchange](https://github.com/winnerineast/MLKX)
+   * [Machine Comprehension - IBM](https://github.com/at3103/Machine-Comprehension)
+   * [Teaching Machines to Read and Comprehend (Theano) - Deep Mind](https://github.com/deepmind/rc-data)
+   * [Teaching Machines to Read and Comprehend (Theano/Lasagne)](https://github.com/adbrebs/rnn_reader)
+   * [Attentive Reader(Tensorflow) - carpedm20](https://github.com/carpedm20/attentive-reader-tensorflow)
+   * [SeqMacthSeq(Torch) - shuohangwang](https://github.com/shuohangwang/SeqMatchSeq)
+
 ## Keras Basic
 
 ## NLP Basic

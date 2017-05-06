@@ -5,7 +5,7 @@
 - English
   - [Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras](http://machinelearningmastery.com/sequence-classification-lstm-recurrent-neural-networks-python-keras/)
   - [Text Classificaion Using CNN with Keras](https://richliao.github.io/supervised/classification/2016/11/26/textclassifier-convolutional/)
-    -[Paper: CNN for Text Classification, Yoon Kim](https://www.cs.cmu.edu/~diyiy/docs/naacl16.pdf)
+    - [Paper: CNN for Text Classification, Yoon Kim](https://www.cs.cmu.edu/~diyiy/docs/naacl16.pdf)
     
   - [Text Classificaiton Using sentence level Attentional RNN](https://richliao.github.io/supervised/classification/2016/12/26/textclassifier-RNN/)
   - [Text Classification Using Hierarchical attention network](https://richliao.github.io/supervised/classification/2016/12/26/textclassifier-HATN/)

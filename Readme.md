@@ -15,7 +15,9 @@
 * Korean
 
 ## Machine Comprehension
-
+ * English
+   * [Bi-directional Attention Flow for Machine Comprehension - Minjoon Seo](https://github.com/allenai/bi-att-flow)
+   * [BM25](https://github.com/nhirakawa/BM25)
 ## Keras Basic
 
 ## NLP Basic

@@ -1,7 +1,12 @@
-To-Do
+
+## 참고자료
+ - [Topic Modeling for Python (Korean & English)](https://www.lucypark.kr/courses/2015-ba/text-mining.html#topic-modeling)
+  
 
 
 
+
+https://github.com/keon/awesome-nlp
 
 페이스북: '대화 시스템 연구'를 위한 통합 프레임워크인데요
 공개된 대화 데이터를 사용해서 일관되게 평가하고 연구할 수 있는 툴로 보입니다.

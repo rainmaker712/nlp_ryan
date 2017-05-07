@@ -20,12 +20,10 @@
 
 ## Machine Comprehension
  * Dataset
-<<<<<<< HEAD
    * [NewsQA: A Machine Comprehension Dataset - Maluuba Research (Aquired by MS in 2017)](https://datasets.maluuba.com/NewsQA)
    
    * [The Stanford Question Answering Dataset - SQuAD](https://rajpurkar.github.io/SQuAD-explorer/) - __Complete__
    * [MS MACRO Dataset -Dataset for Deep Learning NLP](http://www.msmarco.org/) - __Complete__
-=======
    * [The Stanford Question Answering Dataset - SQuAD](https://rajpurkar.github.io/SQuAD-explorer/)
    * [MS MACRO Dataset -Dataset for Deep Learning NLP](http://www.msmarco.org/)
    * [NewsQA: A Machine Comprehension Dataset - Maluuba Research (Aquired by MS in 2017)](https://datasets.maluuba.com/NewsQA)
@@ -39,9 +37,7 @@
    * [Teaching Machines to Read and Comprehend (Theano/Lasagne)](https://github.com/adbrebs/rnn_reader)
    * [Attentive Reader(Tensorflow) - carpedm20](https://github.com/carpedm20/attentive-reader-tensorflow)
    * [SeqMacthSeq(Torch) - shuohangwang](https://github.com/shuohangwang/SeqMatchSeq)
->>>>>>> upstream/master
 
-   
  * Source Code - English
    * [Bi-directional Attention Flow for Machine Comprehension - Minjoon Seo](https://github.com/allenai/bi-att-flow)
    * [BM25](https://github.com/nhirakawa/BM25)

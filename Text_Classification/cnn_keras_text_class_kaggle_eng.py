@@ -29,8 +29,7 @@ from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
 from keras.utils.np_utils import to_categorical
 
-from keras.layers import Embedding
-from keras.layers import Dense, Input, Flatten
+from keras.layers import Dense, Dropout, Activation, Input, Flatten
 from keras.layers import Conv1D, MaxPooling1D, Embedding, Merge, Dropout
 from keras.models import Model
 
@@ -38,7 +37,6 @@ MAX_SEQUENCE_LENGTH = 1000
 MAX_NB_WORDS = 20000
 EMBEDDING_DIM = 100
 VALIDATION_SPLIT = 0.2
-
 
 #Read data from files
 data_train = pd.read_csv( "/home/ryan/dataset/IMDB_Kaggle/labeledTrainData.tsv", header=0, 
@@ -96,12 +94,14 @@ print('Found {} unique tokens.'.format(len(word_index)))
 
 data = pad_sequences(sequences, maxlen=MAX_SEQUENCE_LENGTH)
 
-labels = to_categorical(np.asarray(labels))
+#labels = to_categorical(np.asarray(labels))
+labels = np.asarray(labels)
 print('Shape of data tensor: {}', data.shape) #(25000, 1000)
 print('Shape of label tensor: {}', labels.shape) #(25000, 2)
 
+
 #Data를 랜덤으로 추출하여 training 및 testing 셋으로 나눈다.
-#scikit_learn의 기능으로 손쉽게 나눌 수 있음.
+
 indices = np.arange(data.shape[0])
 np.random.shuffle(indices)
 data = data[indices]
@@ -115,6 +115,15 @@ y_val = labels[-nb_validation_samples:]
 
 print('긍정, 부정 리뷰들의 training & Validation set 갯수')
 print('Training: {}, Validation: {}'.format((y_train.sum(axis=0)), (y_val.sum(axis=0))))
+
+"""
+#scikit_learn의 기능으로 조금 더 손쉽게 나눌 수 있음.
+from sklearn.model_selection import train_test_split
+
+x_train,x_val,y_train,y_val = train_test_split(data, labels, test_size=0.3, random_state=42)
+print('긍정, 부정 리뷰들의 training & Validation set 갯수')
+print('Training: {}, Validation: {}'.format((y_train.sum(axis=0)), (y_val.sum(axis=0))))
+"""
 
 #Pre-trained 된 Glove 불러오기: wiki 및 common crawl, twitter 등의 데이터를 수집하여 학습
 #그 중에, 이번에 사용한 glove.6B.100은 Wiki 2014와 Gigaword5를 사용하였음
@@ -142,7 +151,8 @@ for word, i in word_index.items(): #word_index는 dict 형태의 단어의 집�
 embedding_layer = Embedding(len(word_index) + 1,
                             EMBEDDING_DIM,
                             weights=[embedding_matrix],
-                            input_length=MAX_SEQUENCE_LENGTH,
+                            #input_length=MAX_SEQUENCE_LENGTH,
+                            input_length=maxlen,
                             trainable=True)
 """
 Keras 모델링
@@ -152,31 +162,46 @@ https://blog.keras.io/using-pre-trained-word-embeddings-in-a-keras-model.html
 #Deeper CNN: Yoon Kim의 논문에서 나온 구조를 구현
 
 """
+print('Pad sequences (samples x time)')
+x_train = sequence.pad_sequences(x_train, maxlen=maxlen)
+x_val = sequence.pad_sequences(x_val, maxlen=maxlen)
+print('x_train shape:', x_train.shape)
+print('x_test shape:', x_val.shape)
+
 #Simple Version
 
-sequence_input = Input(shape=(MAX_SEQUENCE_LENGTH,), dtype='int32') #(?, 1000)
-embedded_sequences = embedding_layer(sequence_input)
+#sequence_input = Input(shape=(MAX_SEQUENCE_LENGTH,), dtype='int32') #(?, 1000)
+#embedded_sequences = embedding_layer(sequence_input) #(?, 1000, 100)
+sequence_input = Input(shape=(maxlen,), dtype='int32') #(?, 1000)
+embedded_sequences = embedding_layer(sequence_input) #(?, 1000, 100)
+
+
 l_cov1 = Conv1D(128, 5, activation='relu')(embedded_sequences)
 l_pool1 = MaxPooling1D(5)(l_cov1)
-l_cov2 = Conv1D(128, 5, activation='relu')(l_pool1)
+l_drop1 = Dropout(0.2)(l_pool1)
+l_cov2 = Conv1D(128, 5, activation='relu')(l_drop1)
+#l_cov2 = Conv1D(128, 5, activation='relu')(l_pool1)
 l_pool2 = MaxPooling1D(5)(l_cov2)
-l_cov3 = Conv1D(128, 5, activation='relu')(l_pool2)
-l_pool3 = MaxPooling1D(35)(l_cov3) #global max pooling
-l_flat = Flatten()(l_pool3)
+l_drop2 = Dropout(0.2)(l_pool2)
+l_cov3 = Conv1D(128, 5, activation='relu')(l_drop2)
+#l_pool3 = MaxPooling1D(34)(l_cov3) #global max pooling
+#l_flat = Flatten()(l_pool3)
+l_flat = Flatten()(l_cov3)
 l_dense = Dense(128, activation='relu')(l_flat)
-preds = Dense(2, activation='softmax')(l_dense)
+preds = Dense(1, activation='softmax')(l_dense)
 
 model = Model(sequence_input, preds)
-model.compile(loss = 'categorical_crossentropy',
-              optimizer='rmsprop',
+model.compile(loss = 'binary_crossentropy',
+              optimizer='adam',
               metrics=['acc'])
 
 print("Simple CNN Model 학습")
 model.summary()
-model.fit(x_train, y_train, validation_data=(x_val, y_val),
-          nb_epoch=10, batch_size=128)
+history = model.fit(x_train, y_train, validation_data=(x_val, y_val),
+          epochs=10, batch_size=128)
 
-#Complex Ver
+#Complex Ver - Yoon Kim CNN
+
 convs = []
 filter_sizes = [3,4,5]
 
@@ -184,7 +209,8 @@ sequence_input = Input(shape=(MAX_SEQUENCE_LENGTH,), dtype='int32')
 embedded_sequences = embedding_layer(sequence_input)
 
 for fsz in filter_sizes:
-    l_conv = Conv1D(nb_filter=128,filter_length=fsz,activation='relu')(embedded_sequences)
+    #l_conv = Conv1D(filters=128,filter_length=fsz,activation='relu')(embedded_sequences)
+    l_conv = Conv1D(filters=128, kernel_size=fsz, activation='relu')(embedded_sequences)
     l_pool = MaxPooling1D(5)(l_conv)
     convs.append(l_pool)
     
@@ -195,7 +221,7 @@ l_cov2 = Conv1D(filters=128, activation='relu', kernel_size=5)(l_pool1)
 l_pool2 = MaxPooling1D(30)(l_cov2)
 l_flat = Flatten()(l_pool2)
 l_dense = Dense(128, activation='relu')(l_flat)
-preds = Dense(2, activation='softmax')(l_dense)
+preds = Dense(1, activation='softmax')(l_dense)
 
 model = Model(sequence_input, preds)
 model.compile(loss='categorical_crossentropy',
@@ -206,3 +232,7 @@ print("model fitting - more complex convolutional neural network")
 model.summary()
 model.fit(x_train, y_train, validation_data=(x_val, y_val),
           nb_epoch=20, batch_size=50)
+
+
+#To achieve the best performances, we can 1) fine tune hyper parameters 2) further improve text preprocessing 3) use drop out layer
+

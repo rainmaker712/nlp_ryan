@@ -9,6 +9,35 @@ Created on Sun Apr 30 18:27:14 2017
 
 """
 Model Optimization
+
+1. loss options
+- mean_squared_error
+- mean_squared_lograithmic_error
+- mean_absolute_error
+- mean_ablsolute_percentage_error
+- binary_crossentropy
+- categorical_crossentropy
+
+2. L1/L2 regeularization
+
+from keras import regularizers
+model.add(Dense(50, input_dim=100, activation="sigmoid", W_regularizer=regularizers.l2(0.01)))
+
+3. Dropout -> 마지막에 가중치 p를 곱하여 스케일링
+
+model.add(Dropout(0.5))
+model.compile(optimizer=SGD(0.5), loss='categorical_crossentropy', metrics=["acc"])
+
+4. Weight initialization
+model.add(Dense(100, input_dim=10, activation="sigmoid", "init"=uniform))
+
+5. Softmax
+
+model.Sequential()
+model.add(Dense(15, input_dim=100, activation='sigmoid', init="global_uniform"))
+model.add(Dense(10, activation='softmax', init='global_uniform"))
+model.compile(optimizer=SGD(), loss='categorical_crossentropy', metrics=["accuracy"])
+
 """
 
 # Import the SGD optimizer
@@ -32,6 +61,12 @@ for lr in lr_to_test:
     
     # Fit the model
     model.fit(predictors, target)
+    
+    
+
+    
+    
+    
     
 """
 Model validation

@@ -53,6 +53,15 @@
    * [Glove: Pre-trained Model - Stanford](https://nlp.stanford.edu/projects/glove/) - __Check__
    * [Word2Vec: Pre-trained model from Google News (100 billion words)](https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/edit) - __Check__
 
+## Song Lyrics Generator (Inspired by Siraj Raval)
+ * [Generate Rap Lyrics - Siraj Raval](https://www.youtube.com/watch?v=yE0dcDNRZjw&feature=youtu.be)
+   * [Sample Source Code](https://github.com/llSourcell/Rap_Lyric_Generator)
+   
+ * [DeepBeat - Sample Website](http://deepbeat.org/)
+ * Paper
+   * [Unsupervised Rhyme Scheme Identification in Hip Hop Lyrics Using HMM - HongKong Univ.](https://link.springer.com/chapter/10.1007%2F978-3-642-39593-2_3)
+   * [DopeLearning: A Computational Approach to Rap Lyrics Generation](https://arxiv.org/abs/1505.04771)
+
 <hr/>
 
 # *참고자료*

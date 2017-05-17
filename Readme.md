@@ -36,6 +36,7 @@
    * [Teaching Machines to Read and Comprehend (Theano/Lasagne)](https://github.com/adbrebs/rnn_reader)
    * [Attentive Reader(Tensorflow) - carpedm20](https://github.com/carpedm20/attentive-reader-tensorflow)
    * [SeqMacthSeq(Torch) - shuohangwang](https://github.com/shuohangwang/SeqMatchSeq)
+   * [Machine Comprehension in Keras(Teaching Machines to Read and Comprehend)](https://github.com/dandxy89/DeepLearning_MachineLearning/tree/master/Keras/Attention)
 
 ## Keras Tutorial
   * [Keras Documentation](https://keras.io/) - __Check__

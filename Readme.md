@@ -74,6 +74,7 @@
   - [Deep Learning Zero To All: Sung Kim](https://github.com/hunkim/DeepLearningZeroToAll)
   - [Deep Learning Tutorial for 10 weeks- sjchoi86](https://github.com/sjchoi86/dl_tutorials_10weeks)
   - [Step-by-Step Guide: ML Python](http://machinelearningmastery.com/start-here/)
+  - [Awesome Code](https://github.com/BinbinBian/Awesome-Code#keras)
   
  ## Natural Language Procesing
   - [Datasets for NLP: QA/Dialog System/Goal-Oriented Dialogue Systems](https://github.com/karthikncode/nlp-datasets) 

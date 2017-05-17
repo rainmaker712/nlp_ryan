@@ -14,6 +14,7 @@
   * [Text Classificaion Using CNN with Keras](https://richliao.github.io/supervised/classification/2016/11/26/textclassifier-convolutional/) - __Complete__
   * [Text Classification Using CNN with Tensorflow](http://www.wildml.com/2015/12/implementing-a-cnn-for-text-classification-in-tensorflow/) - __Complete__
     * [Paper: CNN for Text Classification, Yoon Kim](https://arxiv.org/abs/1408.5882): Complete - __Complete__
+    * [Paper: Character-Aware Neural Language Models, Yoon Kim](https://arxiv.org/abs/1508.06615)
 
 * Korean
   * Domain / Intend Classification Using Deep Learning & Ensemble Model (95+% Accuracy) - __On_Progress__

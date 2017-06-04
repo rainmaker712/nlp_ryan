@@ -25,8 +25,7 @@
    
    * [The Stanford Question Answering Dataset - SQuAD](https://rajpurkar.github.io/SQuAD-explorer/) - - __Check__
    * [MS MACRO Dataset -Dataset for Deep Learning NLP](http://www.msmarco.org/) - - __Check__
-   * [NewsQA: A Machine Comprehension Dataset - Maluuba Research (Aquired by MS in 2017)](https://datasets.maluuba.com/NewsQA)
-   
+
  * Source Code - English
    * [Bi-directional Attention Flow for Machine Comprehension - Minjoon Seo](https://github.com/allenai/bi-att-flow) - __Check__
    * [BM25](https://github.com/nhirakawa/BM25)

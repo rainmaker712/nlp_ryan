@@ -16,15 +16,18 @@ https://offbit.github.io/how-to-read/
 from keras.utils import np_utils
 from keras.preprocessing.text import Tokenizer
 import itertools
-import numpy as np
 import random
 
-from keras.preprocessing import sequence
-from keras.layers.core import Dense, Dropout, Activation, Flatten
-from keras.layers.embeddings import Embedding
-from keras.layers.convolutional import Convolution1D, MaxPooling1D
 from keras.datasets import imdb
-from keras.models import Sequential, Model
+from keras.models import Sequential
+from keras.layers import Dense
+from keras.layers import LSTM
+from keras.layers import GRU
+from keras.layers.convolutional import Conv1D
+from keras.layers.convolutional import Conv2D
+from keras.layers.convolutional import MaxPooling1D
+from keras.layers.embeddings import Embedding
+from keras.preprocessing import sequence
 
 
 """
@@ -131,13 +134,22 @@ def conv_str_list(x):
 df_domain = conv_str_list(domain)
 df_idx = conv_str_list(idx)
 
+
+"""Multiclass"""
+#make them into categorical
+#from keras.utils import to_categorical
+#df_domain= to_categorical(df_domain, num_classes=6)
+
+#from sklearn.model_selection import train_test_split
+#x_train, x_test, y_train, y_test = train_test_split(x, df_domain, test_size=0.33, random_state=42)
+
+"""Binary"""
 #Convert domain to binary
 def domain_select(dm):
     dm_select = [i for i in range(len(df_domain)) if df_domain[i] == dm]
     etc_select = [i for i in range(len(df_domain)) if df_domain[i] != dm]
     return dm_select, etc_select
     
-
 #Domain Selector
 alarm, etc = domain_select(0)
 
@@ -165,61 +177,59 @@ print(len(x_train), len(y_train), len(x_test), len(y_test))
 #tokenizer.word_counts #단어의 숫자변경
 #tokenizer.texts_to_matrix(docs) #One hot으로 변경
 
+
+
 #-----------------Data Preprocessing Ends -----------
 
+#------Create Model--------
+
+# Import EarlyStopping
+#from keras.callbacks import EarlyStopping
+#early_stopping_monitor = EarlyStopping(patience = 2)
+
+# create the model
+embedding_vector_length = 32
 model = Sequential()
-# we start off with an efficient embedding layer which maps
-# our vocab indices into embedding_dims dimensions
-model.add(Embedding(max_features,
-                    embedding_dims,
-                    input_length=sequence_length))
-model.add(Dropout(0.2))
+model.add(Embedding(max_words, embedding_vector_length, input_length=sequence_length))
+model.add(Conv1D(filters=32, kernel_size=3, padding='same', activation='relu'))
+#model.add(LSTM(100, dropout=0.2, recurrent_dropout=0.2))
+model.add(GRU(30, dropout=0.2, recurrent_dropout=0.2))
+#model.add(Dense(6, activation='relu'))
+model.add(Dense(2, activation='relu'))
+model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+print(model.summary())
+model.fit(x_train, y_train, epochs=15, batch_size=64)
+# Final evaluation of the model
+scores = model.evaluate(x_test, y_test, verbose=0)
+print("Accuracy: %.2f%%" % (scores[1]*100))
 
-# we add a Convolution1D, which will learn filters
-# word group filters of size filter_length:
-model.add(Conv1D(filters,
-                 kernel_size,
-                 padding='valid',
-                 activation='relu',
-                 strides=1))
-# we use max pooling:
-model.add(GlobalMaxPooling1D())
+# Create the plot
+import matplotlib.pyplot as plt
+plt.plot(model['acc'], 'r')
+plt.xlabel('Epochs')
+plt.ylabel('acc')
+plt.show()
 
-# We add a vanilla hidden layer:
-model.add(Dense(hidden_dims))
-model.add(Dropout(0.2))
-model.add(Activation('relu'))
+#Save model
+from keras.models import load_model
+model.save('domain_classify.h5')
 
-# We project onto a single unit output layer, and squash it with a sigmoid:
-model.add(Dense(1))
-model.add(Activation('sigmoid'))
+my_model = load_model('domain_classify.h5')
+my_model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
-model.compile(loss='categorical_crossentropy',
-              optimizer='adam',
-              metrics=['accuracy'])
+scores = my_model.evaluate(x_test, y_test, verbose=0)
+print("Accuracy: %.2f%%" % (scores[1]*100))
 
-model.summary()
-
-model.fit(x_train, y_train,
-          batch_size=batch_size,
-          epochs=num_epochs,
-          validation_data=(x_test, y_test))
+#Test text
+test = "김현식의 내사랑 내곁에 틀어줘"
 
 
+sent = tokenizer.texts_to_sequences(test)
+x = sequence.pad_sequences(x, maxlen=sequence_length, padding="post", truncating="post")
 
+my_model.predict_classes(np.array(sent).shape)
 
-
-
+max_words, embedding_vector_length, sequence_length
 
 
 
-
-
-
-
-
-
-#model.compile(loss='categorical_crossentropy', optimizer='rmsprop', metrics=['accuracy'])
-#model.fit(X_train, y=y_train, nb_epoch=1500, verbose=0, validation_split=0.2, shuffle=True)
-#scores = model.evaluate(X_test, y_test, verbose=0)
-#print("%s: %.2f%%" % (model.metrics_names[1], scores[1]*100))

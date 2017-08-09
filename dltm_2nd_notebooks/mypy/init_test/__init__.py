@@ -1,1 +1,0 @@
-from ._hidden import TestClass

@@ -1,0 +1,10 @@
+#무거운 파일 업로드 하지말기
+.idea/
+.ipynb_checkpoints/
+.vscode/
+.DS_Store
+dataset/
+Tensorflow_basic/temp/
+Text_Classification/dataset/
+Text_Classification/ckpt_textcnn/
+.Rhistory

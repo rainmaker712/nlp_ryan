@@ -4,6 +4,10 @@
 
 # *To-Do*
 
+##TF1.4 Structure
+
+* [Conversation-Tensorflow](https://github.com/DoungjunLee/conversation-tensorflow)
+
 ## Text Classificaiton for Korean
 
 * English

@@ -141,7 +141,7 @@
     \def\gt{>}
     \def\lt{<}
     % Document parameters
-    \title{tf\_eagar(Define by run) ????}
+    \title{tf\_eagar(Define by run) ?????????}
     
     
     
@@ -303,39 +303,175 @@ Run)}\label{tf-eager-tutorial-define-by-run}}
 \end{Verbatim}
 
 
-    \hypertarget{gradients}{%
-\subsection{Gradients}\label{gradients}}
+    \hypertarget{numerical-computation}{%
+\section{Numerical Computation}\label{numerical-computation}}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}5}]:} \PY{k}{def} \PY{n+nf}{square}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
-            \PY{k}{return} \PY{n}{tf}\PY{o}{.}\PY{n}{multiply}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{x}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} Multiply 2 * 2 matrix}
+        \PY{c+c1}{\PYZsh{} Multiply two 2x2 matrices}
+        \PY{n}{x} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}
+                       \PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}\PY{p}{]}\PY{p}{,}
+                      \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,}
+                       \PY{p}{[}\PY{l+m+mi}{6}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{]}\PY{p}{]}\PY{p}{)}
         
-        \PY{n}{grad} \PY{o}{=} \PY{n}{tfe}\PY{o}{.}\PY{n}{gradients\PYZus{}function}\PY{p}{(}\PY{n}{square}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} Add one to each element}
+        \PY{c+c1}{\PYZsh{} (tf.add supports broadcasting)}
+        \PY{c+c1}{\PYZsh{}broadcasting: 퍼트리다의 의미, 크기가 작은 행렬을 크기가 큰 행렬로 맞추어 주는 기능, 축소는 데이터 손실 때문에 불가}
+        \PY{c+c1}{\PYZsh{}아래와 같은 경우는 1이 [[1 1], [1 1]], shape(2,2)로 변환}
+        \PY{c+c1}{\PYZsh{}차원이 다를 경우, expand\PYZus{}dims() 함수에 맞게 넣어야 함. }
+        \PY{c+c1}{\PYZsh{}설명 참조: http://excelsior\PYZhy{}cjh.tistory.com/entry/Matrix\PYZhy{}Broadcasting\PYZhy{}\PYZpc{}ED\PYZpc{}96\PYZpc{}89\PYZpc{}EB\PYZpc{}A0\PYZpc{}AC\PYZpc{}EC\PYZpc{}9D\PYZpc{}98\PYZhy{}\PYZpc{}EB\PYZpc{}B8\PYZpc{}8C\PYZpc{}EB\PYZpc{}A1\PYZpc{}9C\PYZpc{}EB\PYZpc{}93\PYZpc{}9C\PYZpc{}EC\PYZpc{}BA\PYZpc{}90\PYZpc{}EC\PYZpc{}8A\PYZpc{}A4\PYZpc{}ED\PYZpc{}8C\PYZpc{}85}
         
-        \PY{n+nb}{print}\PY{p}{(}\PY{n}{square}\PY{p}{(}\PY{l+m+mf}{3.}\PY{p}{)}\PY{p}{)}
-        \PY{n+nb}{print}\PY{p}{(}\PY{n}{grad}\PY{p}{(}\PY{l+m+mf}{3.}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}x\PYZca{}2 \PYZhy{}\PYZgt{} 2x \PYZhy{}\PYZgt{} 6}
+        \PY{n}{y} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
         
-        \PY{c+c1}{\PYZsh{}2차 gradients\PYZus{}function}
-        \PY{n}{gradgrad} \PY{o}{=} \PY{n}{tfe}\PY{o}{.}\PY{n}{gradients\PYZus{}function}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{grad}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} Create a random random 5x3 matrix}
+        \PY{n}{z} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{random\PYZus{}uniform}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}
         
-        \PY{n+nb}{print}\PY{p}{(}\PY{n}{gradgrad}\PY{p}{(}\PY{l+m+mf}{3.}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{z}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+tf.Tensor(
+[[16 19]
+ [36 43]], shape=(2, 2), dtype=int32)
+tf.Tensor(
+[[17 20]
+ [37 44]], shape=(2, 2), dtype=int32)
+tf.Tensor(
+[[ 0.03383172  0.72217357  0.39446187]
+ [ 0.7585969   0.81870437  0.45011866]
+ [ 0.21634579  0.90425539  0.120924  ]
+ [ 0.52222943  0.38636231  0.99817371]
+ [ 0.58947456  0.60888505  0.22570443]], shape=(5, 3), dtype=float32)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} Tensor object를 활용하여, tf.add, tf.subtract, tf.multiply로 활용도 가능하다.}
+        \PY{n}{x} \PY{o}{=} \PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{2} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{x}\PY{p}{)}
         
-        \PY{k}{def} \PY{n+nf}{abs}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
-            \PY{k}{return} \PY{n}{x} \PY{k}{if} \PY{n}{x} \PY{o}{\PYZgt{}} \PY{l+m+mf}{0.} \PY{k}{else} \PY{o}{\PYZhy{}}\PY{n}{x}
+        \PY{c+c1}{\PYZsh{} Numpy를 활용하여 값을 변환하기}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
         
-        \PY{n}{grad} \PY{o}{=} \PY{n}{tfe}\PY{o}{.}\PY{n}{gradients\PYZus{}function}\PY{p}{(}\PY{n+nb}{abs}\PY{p}{)}
+        \PY{n}{x} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}                     \PY{c+c1}{\PYZsh{} tf.Tensor with a value of 2}
+        \PY{n}{y} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} tf.Tensor with a value of 2}
+        \PY{n}{z} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{multiply}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}                \PY{c+c1}{\PYZsh{} numpy.int64 with a value of }
         
-        \PY{n+nb}{print}\PY{p}{(}\PY{n}{grad}\PY{p}{(}\PY{l+m+mf}{2.0}\PY{p}{)}\PY{p}{)}  \PY{c+c1}{\PYZsh{} [1.]}
-        \PY{n+nb}{print}\PY{p}{(}\PY{n}{grad}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{2.0}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} [\PYZhy{}1.]}
+        \PY{c+c1}{\PYZsh{}반대로 tf.constant 활용하여 numpy \PYZhy{}\PYZgt{} tf로 변화}
+        \PY{n}{np\PYZus{}x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{l+m+mf}{2.}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{float32}\PY{p}{)}
+        \PY{n}{x} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{constant}\PY{p}{(}\PY{n}{np\PYZus{}x}\PY{p}{)}
+        
+        \PY{n}{py\PYZus{}y} \PY{o}{=} \PY{l+m+mf}{3.}
+        \PY{n}{y} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{constant}\PY{p}{(}\PY{n}{py\PYZus{}y}\PY{p}{)}
+        
+        \PY{n}{z} \PY{o}{=} \PY{n}{x} \PY{o}{+} \PY{n}{y} \PY{o}{+} \PY{l+m+mi}{1}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{z}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{z}\PY{o}{.}\PY{n}{numpy}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+tf.Tensor([ 3.], shape=(1,), dtype=float32)
+tf.Tensor(6.0, shape=(), dtype=float32)
+6.0
+
+    \end{Verbatim}
+
+    \hypertarget{automatic-difference-gradients}{%
+\subsection{Automatic Difference
+(Gradients)}\label{automatic-difference-gradients}}
+
+\begin{itemize}
+\tightlist
+\item
+  tfe.gradients\_function(f): 입력 f에 대해 arg 미분값을 돌려준다.
+\item
+  tfe.value\_and\_gradients\_function(f): tfe.gradients\_function(f)과
+  비슷하지만,
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{k}{def} \PY{n+nf}{square}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{tf}\PY{o}{.}\PY{n}{multiply}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{x}\PY{p}{)}
+         \PY{k}{assert} \PY{l+m+mi}{9} \PY{o}{==} \PY{n}{square}\PY{p}{(}\PY{l+m+mf}{3.}\PY{p}{)}\PY{o}{.}\PY{n}{numpy}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{grad} \PY{o}{=} \PY{n}{tfe}\PY{o}{.}\PY{n}{gradients\PYZus{}function}\PY{p}{(}\PY{n}{square}\PY{p}{)}
+         \PY{k}{assert} \PY{l+m+mi}{6} \PY{o}{==} \PY{n}{grad}\PY{p}{(}\PY{l+m+mf}{3.}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{numpy}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{square}\PY{p}{(}\PY{l+m+mf}{3.}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{grad}\PY{p}{(}\PY{l+m+mf}{3.}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}x\PYZca{}2 \PYZhy{}\PYZgt{} 2x \PYZhy{}\PYZgt{} 6}
+         
+         \PY{c+c1}{\PYZsh{}2차 gradients\PYZus{}function}
+         \PY{n}{grad2} \PY{o}{=} \PY{n}{tfe}\PY{o}{.}\PY{n}{gradients\PYZus{}function}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{grad}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{k}{assert} \PY{l+m+mi}{2} \PY{o}{==} \PY{n}{grad2}\PY{p}{(}\PY{l+m+mf}{3.}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{numpy}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{grad2}\PY{p}{(}\PY{l+m+mf}{3.}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}3차 grad.}
+         \PY{n}{grad3} \PY{o}{=} \PY{n}{tfe}\PY{o}{.}\PY{n}{gradients\PYZus{}function}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{grad2}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}assert 0 == grad3(3.)[0].numpy()}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{grad3}\PY{p}{(}\PY{l+m+mf}{3.}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}absolute value}
+         \PY{k}{def} \PY{n+nf}{abs}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{x} \PY{k}{if} \PY{n}{x} \PY{o}{\PYZgt{}} \PY{l+m+mf}{0.} \PY{k}{else} \PY{o}{\PYZhy{}}\PY{n}{x}
+         
+         \PY{n}{grad} \PY{o}{=} \PY{n}{tfe}\PY{o}{.}\PY{n}{gradients\PYZus{}function}\PY{p}{(}\PY{n+nb}{abs}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{grad}\PY{p}{(}\PY{l+m+mf}{2.0}\PY{p}{)}\PY{p}{)}  \PY{c+c1}{\PYZsh{} [1.]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{grad}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{2.0}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} [\PYZhy{}1.]}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
 tf.Tensor(9.0, shape=(), dtype=float32)
-[<tf.Tensor: id=59, shape=(), dtype=float32, numpy=6.0>]
-[<tf.Tensor: id=75, shape=(), dtype=float32, numpy=2.0>]
-[<tf.Tensor: id=84, shape=(), dtype=float32, numpy=1.0>]
-[<tf.Tensor: id=94, shape=(), dtype=float32, numpy=-1.0>]
+[<tf.Tensor: id=958, shape=(), dtype=float32, numpy=6.0>]
+[<tf.Tensor: id=990, shape=(), dtype=float32, numpy=2.0>]
+[None]
+[<tf.Tensor: id=1013, shape=(), dtype=float32, numpy=1.0>]
+[<tf.Tensor: id=1022, shape=(), dtype=float32, numpy=-1.0>]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{c+c1}{\PYZsh{}실제 linear regression을 통하여 활용해보자}
+         
+         \PY{k}{def} \PY{n+nf}{prediction}\PY{p}{(}\PY{n+nb}{input}\PY{p}{,} \PY{n}{weight}\PY{p}{,} \PY{n}{bias}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n+nb}{input} \PY{o}{*} \PY{n}{weight} \PY{o}{+} \PY{n}{bias}
+         
+         \PY{c+c1}{\PYZsh{} 3x+2 예제 데이터}
+         \PY{n}{NUM\PYZus{}EXAMPLES} \PY{o}{=} \PY{l+m+mi}{1000}
+         \PY{n}{training\PYZus{}inputs} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{random\PYZus{}normal}\PY{p}{(}\PY{p}{[}\PY{n}{NUM\PYZus{}EXAMPLES}\PY{p}{]}\PY{p}{)}
+         \PY{n}{noise} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{random\PYZus{}normal}\PY{p}{(}\PY{p}{[}\PY{n}{NUM\PYZus{}EXAMPLES}\PY{p}{]}\PY{p}{)}
+         \PY{n}{training\PYZus{}outputs} \PY{o}{=} \PY{n}{training\PYZus{}inputs} \PY{o}{*} \PY{l+m+mi}{3} \PY{o}{+} \PY{l+m+mi}{2} \PY{o}{+} \PY{n}{noise}
+         
+         \PY{c+c1}{\PYZsh{} loss function: Mean Sqaure Error}
+         \PY{k}{def} \PY{n+nf}{loss}\PY{p}{(}\PY{n}{weight}\PY{p}{,} \PY{n}{bias}\PY{p}{)}\PY{p}{:}
+             \PY{n}{error} \PY{o}{=} \PY{n}{prediction}\PY{p}{(}\PY{n}{training\PYZus{}inputs}\PY{p}{,} \PY{n}{weight}\PY{p}{,} \PY{n}{bias}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{training\PYZus{}outputs}
+             \PY{k}{return} \PY{n}{tf}\PY{o}{.}\PY{n}{reduce\PYZus{}mean}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{square}\PY{p}{(}\PY{n}{error}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}weight 와 bias로 loss의 미분값을 구해보자}
+         \PY{n}{grad} \PY{o}{=} \PY{n}{tfe}\PY{o}{.}\PY{n}{gradients\PYZus{}function}\PY{p}{(}\PY{n}{loss}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}200번 학습을 진행, W,B는 랜덤 값그리고, 같은 배치사이즈}
+         \PY{n}{W} \PY{o}{=} \PY{l+m+mi}{5}
+         \PY{n}{B} \PY{o}{=} \PY{l+m+mi}{10}
+         
+         \PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{l+m+mf}{0.01}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Initial loss: }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{loss}\PY{p}{(}\PY{n}{W}\PY{p}{,} \PY{n}{B}\PY{p}{)}\PY{o}{.}\PY{n}{numpy}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{200}\PY{p}{)}\PY{p}{:}
+             \PY{p}{(}\PY{n}{dW}\PY{p}{,} \PY{n}{dB}\PY{p}{)} \PY{o}{=} \PY{n}{grad}\PY{p}{(}\PY{n}{W}\PY{p}{,} \PY{n}{B}\PY{p}{)}
+             \PY{n}{W} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{dW} \PY{o}{*} \PY{n}{learning\PYZus{}rate}
+             \PY{n}{B} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{dB} \PY{o}{*} \PY{n}{learning\PYZus{}rate}
+             \PY{k}{if} \PY{n}{i} \PY{o}{\PYZpc{}} \PY{l+m+mi}{20} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Loss at step }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{: }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Initial loss: 67.991447
 
     \end{Verbatim}
 
@@ -445,6 +581,13 @@ tf.Tensor([[[ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]], shape=(1, 1, 10), dtype
         \PY{k}{for} \PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)} \PY{o+ow}{in} \PY{n}{tfe}\PY{o}{.}\PY{n}{Iterator}\PY{p}{(}\PY{n}{dataset}\PY{p}{)}\PY{p}{:}
             \PY{n}{grads} \PY{o}{=} \PY{n}{tfe}\PY{o}{.}\PY{n}{implicit\PYZus{}gradients}\PY{p}{(}\PY{n}{loss\PYZus{}function}\PY{p}{)}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}
             \PY{n}{optimizer}\PY{o}{.}\PY{n}{apply\PYZus{}gradients}\PY{p}{(}\PY{n}{grads}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}GPU사용하기}
+        \PY{c+c1}{\PYZsh{}optimizer.min을 통해서, 짧게 작성하였지만, apply\PYZus{}gradients()기능을 써도 가능}
+        
+        \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{device}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{/gpu:0}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{:}
+            \PY{k}{for} \PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)} \PY{o+ow}{in} \PY{n}{tfe}\PY{o}{.}\PY{n}{Iterator}\PY{p}{(}\PY{n}{dataset}\PY{p}{)}\PY{p}{:}
+                \PY{n}{optimizer}\PY{o}{.}\PY{n}{minimize}\PY{p}{(}\PY{k}{lambda}\PY{p}{:} \PY{n}{loss\PYZus{}function}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -474,18 +617,102 @@ tf.Tensor([[[ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]], shape=(1, 1, 10), dtype
 
     \end{Verbatim}
 
+    \hypertarget{gpu-uxc0acuxc6a9uxd558uxae30}{%
+\subsection{GPU 사용하기}\label{gpu-uxc0acuxc6a9uxd558uxae30}}
+
+\begin{itemize}
+\tightlist
+\item
+  eager에서는 GPU가 자동으로 실행되지 않기 때문에, 지정해주고 사용해야
+  한다.
+\end{itemize}
+
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}GPU 사용법}
-        \PY{c+c1}{\PYZsh{}optimizer.min을 통해서, 짧게 작성하였지만, apply\PYZus{}gradients()기능을 써도 가능}
-        
-        \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{device}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{/gpu:0}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{:}
-            \PY{k}{for} \PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)} \PY{o+ow}{in} \PY{n}{tfe}\PY{o}{.}\PY{n}{Iterator}\PY{p}{(}\PY{n}{dataset}\PY{p}{)}\PY{p}{:}
-                \PY{n}{optimizer}\PY{o}{.}\PY{n}{minimize}\PY{p}{(}\PY{k}{lambda}\PY{p}{:} \PY{n}{loss\PYZus{}function}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{}1000*1000 매트릭스 계산하기}
+         
+         \PY{k+kn}{import} \PY{n+nn}{time}
+         
+         \PY{k}{def} \PY{n+nf}{measure}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} The very first time a GPU is used by TensorFlow, it is initialized.}
+             \PY{c+c1}{\PYZsh{} So exclude the first run from timing.}
+             \PY{n}{tf}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{x}\PY{p}{)}
+         
+             \PY{n}{start} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{tf}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{x}\PY{p}{)}
+             \PY{n}{end} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         
+             \PY{k}{return} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Took }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{ seconds to multiply a }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{ matrix by itself 10 times}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{end} \PY{o}{\PYZhy{}} \PY{n}{start}\PY{p}{,} \PY{n}{x}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Run on CPU:}
+         \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{device}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{/cpu:0}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CPU: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{measure}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{random\PYZus{}normal}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} If a GPU is available, run on GPU:}
+         \PY{k}{if} \PY{n}{tfe}\PY{o}{.}\PY{n}{num\PYZus{}gpus}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{:}
+             \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{device}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{/gpu:0}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GPU: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{measure}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{random\PYZus{}normal}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 
 
-    \hypertarget{using-ear-with-graphs}{%
-\subsection{Using Ear with Graphs}\label{using-ear-with-graphs}}
+    \begin{Verbatim}[commandchars=\\\{\}]
+CPU: Took 0.26638007164001465 seconds to multiply a (1000, 1000) matrix by itself 10 times
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{}Tensor 객체를 활용하여, 각 디바이스 별로 활용하는 것이 가능하다}
+         
+         \PY{n}{x} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{random\PYZus{}normal}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{x\PYZus{}gpu0} \PY{o}{=} \PY{n}{x}\PY{o}{.}\PY{n}{gpu}\PY{p}{(}\PY{p}{)}
+         \PY{n}{x\PYZus{}cpu} \PY{o}{=} \PY{n}{x}\PY{o}{.}\PY{n}{cpu}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{x\PYZus{}cpu}\PY{p}{,} \PY{n}{x\PYZus{}cpu}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Runs on CPU}
+         \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{x\PYZus{}gpu0}\PY{p}{,} \PY{n}{x\PYZus{}gpu0}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Runs on GPU:0}
+         
+         \PY{k}{if} \PY{n}{tfe}\PY{o}{.}\PY{n}{num\PYZus{}gpus}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{1}\PY{p}{:}
+             \PY{n}{x\PYZus{}gpu1} \PY{o}{=} \PY{n}{x}\PY{o}{.}\PY{n}{gpu}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{x\PYZus{}gpu1}\PY{p}{,} \PY{n}{x\PYZus{}gpu1}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Runs on GPU:1}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        RuntimeError                              Traceback (most recent call last)
+
+        <ipython-input-11-76e20da2e730> in <module>()
+          3 x = tf.random\_normal([10, 10])
+          4 
+    ----> 5 x\_gpu0 = x.gpu()
+          6 x\_cpu = x.cpu()
+          7 
+
+
+        \textasciitilde{}/tf\_nightly/lib/python3.6/site-packages/tensorflow/python/framework/ops.py in gpu(self, gpu\_index)
+        756       as this Tensor.
+        757     """
+    --> 758     return self.\_copy(context.context(), "GPU:" + str(gpu\_index))
+        759 
+        760   def \_\_bool\_\_(self):
+
+
+        \textasciitilde{}/tf\_nightly/lib/python3.6/site-packages/tensorflow/python/framework/ops.py in \_copy(self, ctx, device\_name)
+        713     \# pylint: disable=protected-access
+        714     try:
+    --> 715       new\_tensor = self.\_copy\_to\_device(context=ctx.\_handle, device=device\_name)
+        716     except core.\_NotOkStatusException as e:
+        717       six.raise\_from(core.\_status\_to\_exception(e.code, e.message), None)
+
+
+        RuntimeError: Error copying tensor to device: GPU:0. GPU:0 unknown device.
+
+    \end{Verbatim}
+
+    \hypertarget{using-eagar-with-graphs}{%
+\subsection{Using Eagar with Graphs}\label{using-eagar-with-graphs}}
 
 \begin{itemize}
 \tightlist

@@ -4,11 +4,12 @@
 
 # *To-Do*
 
-##TF1.4 Structure
+##Tensorflow Tutorial (1.4 or Later)
 
 * [Conversation-Tensorflow](https://github.com/DoungjunLee/conversation-tensorflow)
+* [Hvass Tensorflow Tutorial](https://github.com/Hvass-Labs/TensorFlow-Tutorials)
 
-## Text Classificaiton for Korean
+## Text Classificaiton
 
 * English
   * [Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras](http://machinelearningmastery.com/sequence-classification-lstm-recurrent-neural-networks-python-keras/) - __Check__
@@ -22,6 +23,18 @@
 
 * Korean
   * Domain / Intend Classification Using Deep Learning & Ensemble Model (95+% Accuracy) - __On_Progress__
+
+## Sequence-to-Sequence
+
+* [Paper: Convolutional_Seq2Seq](https://norman3.github.io/papers/docs/fairseq)
+* [Paper: Google NMT](https://norman3.github.io/papers/docs/google_neural_machine_translation)
+
+
+## Text Summarization
+
+* English
+  * [Sequence Classification with LSTM Recurrent Neural Networks in Python with Keras](https://github.com/thomasschmied/Text_Summarization_with_Tensorflow) - __TODO__
+
 
 ## Machine Comprehension
  * Dataset
@@ -66,6 +79,18 @@
  * Paper
    * [Unsupervised Rhyme Scheme Identification in Hip Hop Lyrics Using HMM - HongKong Univ.](https://link.springer.com/chapter/10.1007%2F978-3-642-39593-2_3)
    * [DopeLearning: A Computational Approach to Rap Lyrics Generation](https://arxiv.org/abs/1505.04771)
+
+##Pytorch
+
+* [Practial-Pytorch (NLP related)](https://github.com/spro/practical-pytorch)
+* [the-incredible-pytorch](https://github.com/ritchieng/the-incredible-pytorch)
+
+##Python
+
+##Scala
+
+* [Tutorial: Programming in scala summary](https://github.com/funfunStudy/study/wiki/Programming-in-scala-%EC%A0%95%EB%A6%AC)
+* [Tutorial: Scala School](https://twitter.github.io/scala_school/ko/index.html)
 
 <hr/>
 

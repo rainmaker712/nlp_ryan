@@ -26,8 +26,9 @@
 
 ## Sequence-to-Sequence
 
-* [Paper: Convolutional_Seq2Seq](https://norman3.github.io/papers/docs/fairseq)
-* [Paper: Google NMT](https://norman3.github.io/papers/docs/google_neural_machine_translation)
+* Paper
+  * [Convolutional_Seq2Seq](https://norman3.github.io/papers/docs/fairseq)
+  * [Google NMT](https://norman3.github.io/papers/docs/google_neural_machine_translation)
 
 
 ## Text Summarization
@@ -89,8 +90,9 @@
 
 ##Scala
 
-* [Tutorial: Programming in scala summary](https://github.com/funfunStudy/study/wiki/Programming-in-scala-%EC%A0%95%EB%A6%AC)
-* [Tutorial: Scala School](https://twitter.github.io/scala_school/ko/index.html)
+* Tutorial
+  * [Programming in scala Summary](https://github.com/funfunStudy/study/wiki/Programming-in-scala-%EC%A0%95%EB%A6%AC)
+  * [Scala School](https://twitter.github.io/scala_school/ko/index.html)
 
 <hr/>
 

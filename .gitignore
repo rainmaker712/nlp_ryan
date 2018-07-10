@@ -8,3 +8,4 @@ Tensorflow_basic/temp/
 Text_Classification/dataset/
 Text_Classification/ckpt_textcnn/
 .Rhistory
+__pycache__

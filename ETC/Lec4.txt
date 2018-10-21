@@ -1,0 +1,451 @@
+So from the wedding planner's perspective, let's take a look at what is important about a marriage.
+Well, of course, there's the all-important wedding dress.
+Where does the honeymoon go, to Paris?
+Who supplies the flowers?
+Who's the caterer?
+You're going to have some good food.
+Who provides the music?
+Where do you get the limo?
+So, from the wedding planner's perspective, these are all properties about the all central entity type of this whole database, namely the wedding.
+So what I've illustrated with these two past examples is that context is very important when you fix a perception of reality and want to represent it.
+So nothing in reality stands out automatically and tells you whether it's a relationship type, an entity type, or a property type.
+There are three kinds of abstractions that people normally agree are important when you try to fix a perception of reality.
+They are classification, aggregation, and generalization.
+Our ability to define, for example, entity types in the Extended Entity Relationship model, clearly is in support of representing classification.
+The super subtype relationship is introduced in order to be able to support generalization.
+But how about aggregation?
+Does the Empty Relationship Model really support that?
+What needs to happen is the schools attended need to be an entity type as opposed to a relationship type.
+We call that an objectified relationship type.
+So, schools attended is now a relationship type.
+The GPA property type is a property type of that entity type.
+Now, we need to model the two relationship types that are necessary in order to get the same functionality or cardinality of the mapping between the regular user and school.
+The way that is done is that you introduce two, one to many relationships.
+One from regular user to schools attended and one from school to schools attended.
+That functionality, the two one-to-many relationship type, that meet in the middle, is going to result in a many-to-many relationship type between regular user and school.
+So here we have regular user instances.
+And here we have schools attended instances.
+As you can see, a regular user here maps to multiple schools attended via this one-to-many relationship type.
+Here's another example of that.
+Now let's look at school to schools attended.
+Again, that's a one-to-many relationship type.
+This one maps to one, which is one example of many.
+This one here maps to many.
+This one here does not map.
+Now, let's convince ourselves that this action, in the end, results in a many-to-many relationship, between regular user and school, exactly like we were supposed to have.
+So take a look at this particular regular user here, how many schools does that user map to?
+Well maps to these two schools attended and this one maps to that school and this one here maps to that school so that means that this one maps to multiple schools.
+Adversely, take a look at this particular school here.
+Here are two of the the instances of schools attended, and this one matched to that user, this one matched to that user.
+Thus, this school here maps to multiple regular users.
+The next construct I want to show you is that of a composite property type.
+So in this example here again we have the entity type user.
+User has a property of name, but in this case, name is composed from two properties, namely first name and last name.
+So let's look at the instance diagram.
+So let's take a look at this user.
+This user has a name that's composed from a first name and a last name.
+The first name is Jim, last name is Smith.
+Let's take a look at this user.
+This user is Leo, last name Mark.
+And finally, let's take a look at this user here, that's Rocky, last name Dunlop.
+Those of you who are familiar with object oriented programming languages are also familiar with the concept of inheritance.
+So take a look at this example.
+As before, we have users with subtypes of RegularUser and AdminUser.
+And User has subtypes of Female and
+Male.
+In general for users, we have two property types.
+We have Email, which is the identifying property type, and we have Password.
+So that means that every single user has an Email and a Password.
+Well of course that means that a regular user will also have an Email and a Password.
+So will an AdminUser.
+So will a Female user and a Male user.
+In contrast to that, RegularUsers will have BirthDates and CurrentCity.
+For AdminUsers, we just record and store their LastLogin of the AdminUser.
+As I mentioned before, when you look at a RegularUser, that RegularUser will have an Email and a Password.
+But also immediately visible will be BirthDate and
+CurrentCity because these are local properties of RegularUser.
+When you look at an AdminUser, that AdminUser will have an Email and a Password, but also the local property LastLogin.
+As opposed to that, when you look at a User, the only property types you can see are Email and Password.
+So, for a User, it is not plausible to see BirthDate,
+CurrentCity, or LastLogin.
+So, we say that regular User and
+AdminUser will inherit the properties Email and Password, as will Female users and Male users.
+Let us now take a look at identifying relationships types and weak entity types.
+In this example we have two entity types, regular user and status updates.
+We have an identifying property type, email, and we have another property type, date and time.
+The idea of this example is as follows, regular users, they can post multiple status updates during the day to their website.
+Status updates, when they are posted, will have a date and time associated with them.
+However, other users could potentially post status updates at the same date and time.
+So, what we need to model is that each status update in addition is identified by the email of the regular user that posted it.
+And then of course needless to say, date and time need to have a fine enough granularity that is physically impossible for a regular user to post to at the same date and time.
+So, here's how we identify a particular status update.
+We need the email, and we need the date and time in order to identify an individual status update.
+So, email, date, and time together will identify a status update.
+On the other hand since it's not plausible to uniquely identify a status update just by date and time, every single status update that is an instance of this entity type must be hooked up to a regular user so that we have the email available.
+So, status update cannot exist without being hooked up to a regular user.
+That's why we call that entity type weak because instances cannot exists without them being hooked up.
+And we say that this is an identifying relationship type because in order to get to a unique status update, we need to go through the email of regular user and combine that with date and time.
+The fact that this one is not in and by itself, a unique identifier, as illustrated by the dotted line here.
+And this is called a partial identifier.
+Let's say we want to print a list of information about regular users and the schools they attended.
+The information we would like to come out in the result could be, say, their email address, their first name, their last name, and the school name.
+And this is for regular users and the schools they attended.
+What's the type of that query?
+Well, it's a list of properties.
+But a list of properties is not a type.
+It's not an entity type, it's not a relationship type, it's not a super sub type, it's not a property.
+So there is no type to capture this result.
+The essential observation that comes out of that is that since the result doesn't have a type, there is no way that we can take that result and continue to operate on it with a query language.
+So the query I just asked does not have a type and therefore what I used was not a closed query language.
+Query languages have to be closed.
+It's the only way we can formulate high level ideas and ask high level questions.
+It is actually the reason we don't run around in loin cloth anymore.
+Later on, when we look at relations database you'll see elegant, powerful examples of closed query languages.
+In my opinion the lack of a generally agreed upon closed query language for the extended entity relationship model is the reason that database management systems are not based on the extended entity relationship model
+In this example I'm showing a relationship type current job between employer and regular user.
+The point I want to make here is that the employer may be one of two different kinds of entities.
+It could either be a company, which is the employer, or it could be a government agency, which is the employer.
+In case the employer is a company, then an attribute EIN, which is a tax identification number, is needed to be attached with the employer.
+In case the employer is the government agency, then we need an agency ID, which may be a composite property type consisting of the agency name and which municipality it's in.
+The employer type in this case is called a union entity type.
+So there are two important rules associated with union entity types.
+The first one is that employer is a subset of company union government agency.
+So, in other words, they are not going to exist any employers that are not either a company or a government agency.
+The second rule is that the intersection between company and government agency is empty.
+So it is not plausible to have an employer, which at the same time is both a company and a government agency.
+So let's take a look.
+Here's the set of instances of companies.
+Here's the set of instances of government agencies.
+Here's the set of instances of employers at a given point in time.
+So let's try to find out what it means now to satisfy these two rules.
+So as you see with this instance diagram here, we obey the rule that the set of employers must be a subset of company union government agency.
+And you can see, actually in this case here, there's a proper subset.
+There is one company in the instance diagram, which is not an employer.
+And there are two government agencies that are not employers in this database.
+However, every single element of the employer entity type instances, ie they're from one or from the other.
+Let's look at the intersection here.
+As you can see, there are none of the elements in the employer entity type instance set that comes from both of these types.
+So we are also, in this instance, satisfying this role.
+Second we are going to talk about property types.
+Property types are represented by ellipses.
+These ellipses carry names.
+So for the user entity type we just introduced I have here shown you two single valued properties.
+The fact that this is a single line ellipsis signifies that it is a single valued property.
+The first property here has the name,
+Email, second property here has the name, Password.
+So let us look at the instance diagram.
+So here you see there are three instances of user.
+And the first user is Leo and that user has the password qwerty.
+The second user is Rocky, has the password Lydia.
+And the last user is Jim who has the password Fido123.
+So what are property values?
+They can take many forms.
+They can be lexical, as you can see here, we've used letters to represent them.
+They could be any other form of visible element, I mean, it could be a picture of a user.
+They could be audible.
+In other words, you can say what they are without writing them down, without showing a picture, but it's just the audible, the sound of it that's used.
+It's interesting to see that, whereas the instances of user are just surrogates, just representing user, when you look at values, for example, of Email, not only is it a thing in and by itself, but it's actually a thing that names something.
+In this case, it actually names the password.
+In the beginning of the course,
+I told you that we're going to spend a lot of time on data modeling.
+In order to do data modeling, we need data models.
+The Extended Entity-Relationship Model is one data model that is particularly good at helping us fix and represent a perception of reality.
+So now on to the Extended Entity-Relationship Model.
+The last question in this critical reflection about the extended inter-relationship model is, what is the result of a query?
+Remember, data model consists of formal list systems to express data structures, constraints and operations.
+So the first question is, are relationships entities, or are they just glue that tie together entities?
+So in this example we have two entity types, employer, and regular user, and a relationship type, current job between them.
+And, it's a one to many relationship type.
+Now as you notice, this relationship type has a property type current job since date.
+But, if the relationship type has a property type, isn't it then an entity type?
+If we can accept that relationship types have properties, then fortunately in this one to many case, there is an acceptable solution.
+Take a look at these two instances of employer.
+So in this case here, this employer here has two regular users, this one and this one.
+This second employer here has three regular users that have current jobs under that employer, this one, and this one, and this one.
+You can think about the values of the properties of the relationship type, as values that label the connection between employer and regular user.
+So this d1 would be the date, the current job since date, of this regular user, under that employer.
+And likewise, d2 would be the current job since date between that employer and that regular user.
+Since these are hierarchies, instead of actually labeling the relationship instances between them, we could simply move the date d1 down here, and the date d2 down here.
+It would not be possible to move the current job since date up to be a property of employer.
+The reason that would not be possible is then all the regular users employed by that employer would have to have the same date.
+So the solution in this case, as mentioned here, is that the current job since date becomes a property of regular user.
+So basically, this one disappears, and instead it becomes a property of regular user.
+So whenever we look at a data model we know there are three things we need to look at.
+We need to look at data structures.
+We need to look at constraints.
+We need to look at operations.
+There are two fundamental notations that can be used to express operations in relational databases relational algebra and relational calculus.
+We'll look at both of those.
+There are actually two calculi notations.
+One is tuple calculus.
+The other one is domain calculus.
+In the first case it's tuples of relations that are the variables.
+In the second one it's cells of domains that are the variables.
+Sequel, or SQL which we will talk a lot about later, is an example of a tuple calculus language.
+Let's take a look at a second example.
+I'm giving you FemaleUser,
+MaleUser and Wedding.
+What do you think the relationship types and the entity types are?
+Well that would've been my guess too, but did you ever watch the movie
+The Wedding Planner, or Father of the Bride, or some similar movie?
+A variation of a 1-N relationship type is one that's constraint to be mandatory.
+Show you an example of that here.
+The bold solid line signifies that regular user mandatorily must participate in current job.
+Let's take a look at what that means when we look at the instances.
+So we have a set of employers over here.
+We have a set of regular users over here.
+When you look at this 1-N relationship type here you see that, for example, this employer here has two regular users working, this one has one, this one has four.
+There are a couple of employers here that have no one working for them.
+But notice that all the regular users that are instances of that type, that they must be hooked up via that relationship to an employer.
+So not only is it a passive function from regular user to employer.
+It's even a total function.
+The extended entity relationship model is great for fixing and representing a perception of reality.
+However, there is no commercial database system that implements the model directly.
+Almost all the commercial systems implement a relational data model.
+So what I want to do is to show you how to map extended entity relationship diagrams to relations.
+For you to understand that mapping,
+I first need to define for you what a relation is.
+What you see here is a recursive relationship type.
+It's called recursive because it relates an entity type to itself.
+So you have the AdminUser entity type here with properties Email which is identifying and then a SinceDate property, a SinceDate When that adminUser became the supervisor for another adminuser who is the supervisee.
+As you see here, a couple of extra things are added to our notation.
+First of all, there's a direction to the lines of the relationship.
+Second we add roles to the relationship sides.
+Why do we do that?
+We do that because when we have one instance of an admin user, we need to know whether that admin user plays the role of supervisor or supervisee in the manages relationship.
+So let us illustrate that with an instance diagram.
+So take a look at these seven instances of admin users and let's see how they are related to each other in this hierarchy.
+So what you see in this hierarchy is that this admin user instance is the supervisor and manages this admin user who is the supervisee then, apparently, of that admin user.
+This admin user is the supervisor of this one and he or she is the supervisor of this one.
+And at this node, supervisee of this supervisor Is this person and here's another one.
+The person here is the supervisee of that supervisor.
+So this is the manager's hierarchy that you see among the admin users in this example.
+In the first example let's talk about users and last name.
+And my question to you is which of these are entity types, which of these are property types?
+Well most of you probably guessed that user is an entity type and last name is a property type.
+Makes perfect sense.
+Let's take a look at two last names.
+One is Andersen, the other one is Anderson.
+As you can guess, the ending of these names both mean son of, however there's a geographical point to these, and that is that the name
+Andersen Is a Danish last name.
+The name Anderson is a Swedish one.
+Don't confuse the two.
+Now let's take a look at a name from Iceland, Haraldsdottir.
+So yes you are right, the ending dottir actually means daughter of.
+All of these names come from a time where children were named by the first name of the father, followed by either son of or daughter of.
+Does that mean that a son could not be named from his mother?
+Well, let's take a look at another one.
+So, Helguson is actually the name of a famous male soccer player in Iceland.
+Helgu comes from the girl's name Helga.
+So Helgusons is a son of Helga.
+So it is possible to get your mother's name followed by son.
+Let's look at some other names.
+So these names clearly refer to the occupation of a person carpenter, baker, smith.
+And how about these names, while these names are all last names from South Korea.
+These are religious names, first two,
+Irfan and Sabir, are Muslim names.
+Peter and Paul are Christian names.
+Some names mean something.
+My favorite one is of course Leo the Lion.
+So what exactly is in a name?
+Well, we saw here that receiving a name composed from your file's first name and with son of added to it, is an old naming practice.
+Similarly, when a female is named from their father or a male is named from their mother.
+So all of this has to do with Scandinavia.
+It has to do with inheriting names that are constructed from a first name of a parent, and then whatever your gender is.
+These have to do with occupation.
+These has to do with geography, in this case, South Korea.
+These have to do with religion, so you've got here one, two, three, four, five, six, seven different things that are all properties of last name.
+So you still think that last name is a property, or do you think that that's the central entity type in a database dealing with genealogy?
+Let's now look at some of the constraints.
+So we have keys and primary keys.
+There are some consequences of defining in particular primary keys.
+Two consequences are the consequence of entity integrity and referential integrity.
+To explain those, let's take a look at an example.
+So we have a regular user table here with email, birthday, sex, current city and home town.
+And we have the more general table here of users with attributes email and password represent the list of users that exist in reality about whom we are capturing information in the database.
+So this is an existence list.
+This case here, we have chosen to use emails as the unique identifiers for users as opposed to, for example, using surrogates.
+Email is called the primary key of the user table.
+There's an important consequence of being a primary key.
+And that is that no value of email is allowed to be the null value.
+There's another important implication and that is, whenever something, which is a primary key somewhere else, like email here, when that's used in another table like here, the following must be obeyed.
+The set of email addresses that appear here in this table must be a subset of the email addresses that appear here.
+So this must be a subset of this.
+We've now seen the concept of an entity type, and we've several different property types, let's now turn our attention to relationship types.
+Relationship types are represent by diamonds.
+So here in this example, we have two entity of types, male user and female user, and they are connected by the relationship type, current marriage.
+This notation here is the carnality of that relationship.
+It says that this relationship, current marriage, is a 1-1 relationship type.
+Let's add the instance diagram to see what that means.
+So here we have four instances of maleuser and we have six femaleuser.
+As you can see, this maleuser here is currently married to this femaleuser.
+This user here may be married to this femaleuser.
+And this user here is currently married to this femaleuser.
+Notice that there are a couple of maleusers here that are currently not married.
+And notice there are three femaleusers here that are currently not married.
+So since there are instances of maleuser and instances of femaleuser that are not married, this function here or this mapping between these two entity types is a partial function.
+Why is it a function?
+It's a function because for each one of the elements here, there's at most one element over here that it's mapped to.
+It's partial because there are some that are not mapped to anything.
+If we were to have two relationship types between the same two entity types then they would clearly have to have different names so we can distinguish between them.
+Let's take a look at a beautiful car here.
+A car is composed from many many components.
+Let's take a look at the drivetrain.
+So here as you can see you've got the engine and you've got the clutch, the transmission right behind that.
+Here's the driveshaft, it's a rear wheel drive car.
+Your differential, one of the axles has shock.
+These are all parts of a car.
+If you look at an instance of a drivetrain, then that instance is composed from instances of the component parts.
+So you will need an instance of an engine, an instance of a clutch, an instance of a transmission in order to actually compose an instance of a drive train.
+How do you model that in the EER model?
+Unfortunately the answer is, you can't.
+So the entity relationship model does not explicitly support aggregation.
+Of course you can force it and use existing types, relationship types etc.
+But that's like playing object oriented programing in C, it might be a good idea but it's not supported by any kind of tool.
+We are now seeing notation to represent an impressive number of things, relationships, properties, and constraints among them.
+The question is, how do we really know whether something is a thing, a relationship, or a property?
+How much does that depend on the context in which we perceive them?
+A second good question is, is the EER Model supporting all the fundamental types of abstraction that we would expect, including classification, aggregation and generalization?
+And finally, why haven't we seen any queries?
+What would the type of a query on the EER Model be?
+The first symbol of the Extended
+Entity-Relationship Model I'm going to introduce to you is that of an entity type.
+This is a time-invarying representation of a set of users.
+For each one of the symbols that
+I'm going to introduce to you,
+I'm also going to show you what the semantics is.
+This symbol is part of the Extended Entity-Relationship Model.
+This is not.
+This is just my attempt at explaining to you what it means.
+So at any given point in time there is a set of users that we have captured in our model.
+Each one of these dots represents such a user.
+We have previously talked about surrogates.
+Think about these as surrogates.
+They are the substance inside the system that represent users out in the real world.
+So, here, I got four, seven, nine users represented.
+It is important that within one entity-relationship diagram,
+All entity type names must be unique.
+So it is not plausible to have multiple entity types, for example, with the name user.
+So far all the relationship types we have looked at have been binary.
+We are now going to look at an N-ary relationship type with N greater than two.
+In this case here, the event team member relationship type is a ternary relationship type.
+It relates three entity types, regular user, team, and event.
+The semantics of this ternary relationship type is somewhat complicated.
+Let's try to analyze exactly what it means.
+Let us fix email to be a single value.
+Let us fix event name to be a single value.
+So now we have a pair of one regular user and one event.
+Because this is many on this one here it means that a particular regular user in a particular event may participate on many teams.
+Now let's fix event name and let us fix team name.
+Again, since these are the identifiers, event name is going to give us a single event, and team name is going to give us a single team.
+Holding onto that pair, you see that there are many regular users.
+Finally, let's now fix an email, and let's fix a team name.
+So now we have a pair of one regular user and one team, and we see here that there are N events that that particular regular user being on that team may be participating in.
+So the meaning of an instance of this relationship type event team member really is the following.
+A particular regular user on a particular regular team participates in one particular event.
+The implication of that is, that you need email and event name and team name to identify precisely a single instance of this relationship type.
+It's quite rare that you see examples of relationship types that are degree higher than two.
+I think one of the reasons for that is that they are difficult to understand, they are difficult to explain.
+Unfortunately, the problem is, that it is not always possible to take an N-ary relationship type with N three or greater, and decompose it into a conjunction of binary relationships.
+We'll look at that next.
+The next relationship type we'll look at is a many to many relationship type, or an N to M relationship type.
+You can see it's a many to many relationship type when the cardinalities here are described on the lines of the relationship.
+So this is a many to many relationship type between regular users and the schools they attended.
+Again, let's take a look at the instance diagram.
+So here we have five regular users shown.
+Here we have a a bunch of schools shown.
+The relationships here demonstrate that this regular user here has attended these four schools.
+This regular user, this one school.
+This regular user here, these schools.
+But see what happens now when we're dealing with many to many relationship types.
+So notice now that one element here, this regular user here may have attended these four schools, but notice that this school here actually has three regular users who have attended that school.
+So in other words, any single element here may be mapped to multiple elements over here, and any single element over here may be mapped to multiple elements on the left side as is shown here.
+No longer do we have a function here.
+This is a relationship in the mathematical sense of the word.
+The next relationship type we need to talk about is the one to many relationship type.
+So here we have an example of a relationship type between employer and the regular users that work for employers.
+It's called a one to many relationship type for the following reason.
+Let's look at the surrogate C or
+D instances of employer, and the instances representing regular users.
+Then it's a one to many, because each surrogate of employer can be hooked up to zero, one, or more instances of regular user.
+So let me connect a couple more.
+So this employer here may be the employer that this regular user works for and may be the employer that this regular user works for.
+This employer here may be the employer that this regular user works for.
+So when you look at this, being at one to many relationship type means that there's a partial function from the set of surrogates representing regular users to the set of surrogates representing employers.
+It's partial because it's not every single regular user that's met by it.
+So you see here there are some regular users that are not working for any employer what so ever.
+It is also the case that there are some employers, that do not have any regular users working for them.
+That's not related to it being a partial function, of course.
+Being a partial function means that each one of these is mapped to at most, one employer on this side.
+Let us look at super subtypes or is-a relationship types as they are also called.
+Here we have the entity type of user and we have two subtypes of user, regular user and admin user.
+A RegularUser is a User and an AdminUser is a User.
+We also have Female users and a Female User is a User and a Male User is a User.
+Let's look at the instance diagram to understand the semantics of this relationship type.
+So here we have two instances of Male
+Users, three instances of Female Users.
+As you can see, everyone of the Male Users and everyone of the Female Users is also a User.
+In other words there are no instances of Male and
+Female Users that are not also a User.
+None of these users are both in the set of Female Users and Male Users.
+Why is that the case?
+That's because we have insisted on enforcing a disjointness constraint.
+And that means that the two subtypes cannot overlap.
+Now let's look at the instances in the
+Subtype of RegularUser and AdminUser.
+Again you see that you cannot have a user who's a regular user without also being a user.
+So every single one of these also appear up here.
+Neither can you have an AdminUser who does not appear as a User up here.
+But notice that it is actually possible to have a user who is both a RegularUser and an AdminUser reflecting that this constraint here allows that the two subtypes overlap.
+So in this example, what I've done, is I revised the single relationship type we had here to basically three different binary relationship types.
+So here, you see Regular User, while the User Team relationship is hooked up to Team.
+Team is hooked up to
+Event by Team Event, and
+Event is hooked up to
+Regular User by User Event.
+What would the meaning of these relationships be?
+Well, this one would merely state that a regular user is on a particular team.
+It would state that regular user participates in some event.
+It would state that in some event, particular teams are participating.
+But those three facts together, do not cover that a particular user on a particular team participate in a particular event.
+That's space is much, much more narrow than what is illustrated by these.
+The next property type we're going to look at is a multi-valued property type.
+Multi-valued property types are modeled by the the double ellipsis.
+So here we have a regular user who has a multi-valued property type interest.
+Let's look at the instance diagram again.
+So here you have your regular users.
+There are four instances of those.
+Here is a multi-value, so this one multi-value consists of reading, chess and math.
+Those are the interests of the first user.
+This third user he is interested in biking.
+Notice that that's also a multi-value.
+That's acceptable, although it's just one.
+The last user here has a whole bunch of interests, soccer, beer, cricket and baseball.
+Some property types are identifying property types.
+That's shown by underlining the name of the property type.
+Let's look at what that means in the instance diagram.
+So here you have again a user with a name leo@gt.edu.
+Got another user Rocky, you got a third user Jim.
+The constraint that email be an identifying property has the following implication.
+When you point to a particular value, like leo@gt.edu, there can be only a single entity instance identified by that email value.
+So what would not be possible is that given a value of email here, that this would point to two different instances of user.
+So that's not possible.
+It is important to understand that every single entity instance in the database at any given point in time must be uniquely reference-able.
+It was very easy and very simple to see in this case here where you just have one identifying property type that is used to uniquely identify the identity instances.
+Later on we going to see cases where multiple property types and even in some situations relationship types are needed in order to uniquely reference instances of entities.
+So let's first talk about data structures of the relation model, as opposed to the extended entity relationship model.
+Which had all kinds of notations to capture structures from entity types, to property types, to relationship types, to super sub types, etc., there is only one structure in relation databases.
+Namely, relations.
+So guess what you're going to use if you're going to capture entity types, property types, relationship types, super sub types?
+Yep, you're right, you're going to use relations.
+So a domain is a set of atomic values.
+Atomic values that from the point of view of the database management system, has no meaning inside of it.
+In other words nothing is coded in the values, they are just values without meaning that we want to represent.
+You can think about the set of atomic values as a type.
+Now a relation R is a subset of the set or ordered n-tuples defined here.
+So this set of ordered n-tuples of which the relation is a subset is constructed as follows.
+Each one of the elements in the tuple, in element D I, is pulled from the corresponding domain D I.
+It is absolutely essential to notice that a relation is a set, the concept of an attribute is very important in a relation databases.
+Basically, attribute names are used to explain or to interpret the role of a domain in a relation.
+A great advantage of having unique names of attributes within a relation
+Is that now, instead of referring to the position of a column in a table by using the unique attribute name, you can now refer to it by naming.

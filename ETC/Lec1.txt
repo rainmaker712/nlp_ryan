@@ -1,0 +1,487 @@
+So back to the example of a map as a model of reality.
+Here is a map of the world.
+But wait, we are always used to north being up and that's not the case here.
+All right, let's see if we can repair that.
+So here it is.
+North is now up.
+You got South America, you got Africa, you got Denmark right there.
+But wait, there's another problem here.
+This one looks like it's squeezed left to right.
+So here's a second convention we are used to when using a map as a model of reality.
+And that is that it's true to scale.
+One more problem, what is it with all the blue for landmasses here that's somewhat confusing.
+We normally use blue for ocean instead.
+Using blue for landmasses would be the same as if a math teacher used xs and ys for function names.
+And f and gs for variables that would certainly mess with our minds.
+So here's a map where everything appears to be right.
+North is up appears to be true to scale.
+Although of course, we know that with this type of projection of a map there are always some issues close to the north pole and the south pole.
+And finally, we got the color we normally use for land masses namely green.
+At the end of this lesson you will know what a database is, and what a Database Management System is.
+You will also know what the major topics you will cover in this course are.
+Let's now turn our attention to architecture.
+We'll be talking about the architecture of a database and the architecture of the database management system that's used to create and maintain the database.
+The architecture we're going to look at is called is the ANSI/SPARC.
+3-Level architecture.
+A database is a model of structures of reality.
+It's divided into schema and data.
+The schema describes the intention or the type of the data, and the data describes the extension.
+This separation between schema and data is done because it makes data access more effective and efficient.
+So, for example, when we want to search for some data, we write a query against the schema and that query will bring back a result of all the data that fits the structure of the schema that were used in the query.
+The separation into a single schema and data however is not the end of it.
+If the database only consisted of schema and data, then the schema would have to describe aspects of what the meaning of data is how it's used and how it's internally organized.
+This would mean that queries against the database through that schema would be able to reference how the data is physically organized.
+The implication of that is If we decide to change how data is physically organized, then the application of the database would be affected.
+Therefore, the ANSI/SPARC 3-level architecture separates out aspects of how data is physically organized into what is known as an internal schema.
+And data now sits under the internal schema, such that database access, it will appear that it goes through the schema to access the data, but instead what happens is that it goes through the schema, and the request, or chains, is translated to one at the internal schema level and data's accessed and an answer is sent back.
+The benefit of this is that now it's actually plausible to change the way data is stored without affecting the applications that run against the schema.
+However, a database is used by many different applications with different needs to display data.
+Therefore for each need, for each application of the database, we could create an external schema.
+Therefore the ANSI/SPARC
+3-level architecture prescribes a third level named the external schema level that separates out aspects of how data is used by individual applications.
+So now you have applications running against external schema that represents data in the preferred format for those applications requests through the external schema are then translated to requests through the conceptual schema, translated to requests through the internal schema.
+Data is accessed and the response is translated up and presented to the application in the format that it needs.
+Turn this illustration 90 degrees, and you get the three level ANSI/SPARC database architecture that people normally see depicted.
+You have a conceptual schema in the middle, you have an internal schema implementing that and you have a number of external schemata, one for each major application.
+The conceptual schema concentrates on the meaning of data, the internal schema on the storage of data, and the external schemata on the use of data.
+Here's the description of the database management system architecture that's necessary in order to create and support a three-level database as we have just looked at.
+This architecture or this framework was proposed by the
+American National Standards Institute and, amazingly, it was done as early as in 1975.
+Before there really were any commercial implementations of relational databases.
+It had a profound impact on the way relational databases were built.
+The framework consists of two pieces, the Schema Compiler piece and the Query Transformer piece.
+Let us first take a look at the top of it here, the Schema Compiler piece.
+These hexagons represent people working in different roles with a database management system.
+The boxes represent process or pieces of software that transform text.
+The triangle represents the metadatabase where schema definitions are stored.
+The job or the role of Enterprise Administrator is to define conceptual database schemata.
+So using the language or the interface, one here, the Enterprise Administrator will define a conceptual schema.
+The Conceptual Schema Processor will check that for correct syntax, and through a language, too, it will store that conceptual schema of this in the metadatabase.
+An Applications Systems Administrator is responsible for defining external schemata.
+That human role can look at the conceptual schema that's currently defined through the Language Interface three.
+And can express an external schema definition through the interface four.
+The External Schema Processor will read that external schema definition, it will check it for correct syntax.
+And it will check that it is correctly, logically derived from the conceptual schema that was previously defined.
+Finally, it will store that external schema definition inside the metadatabase.
+And as we all ready talked about, multiple external schemata can be defined from the same conceptual schema and stored as metadata.
+Next, a person acting in the role of Database Administrator, again can look at the conceptual schema that has been defined for the database through the interface three here.
+Then that Database Administrator can define an internal schema using the language in interface 13.
+The Internal Schema Processor will now pass that internal schema definition and make sure that it's syntactically correct.
+And make sure that it actually, physically implements and supports what was defined in the conceptual schema.
+When all of that is checked, the Internal Schema Processor can now store that internal schema definition inside the metadatabase.
+So with those three levels completed, there is now a definition of what the three levels of the database will look like stored inside the metadatabase.
+To give you an example of a data model, let me use the relation model, and let me illustrate to you what data structures and constraints and operations look like in that model.
+In the relational model, data is represented in tables.
+Tables have names, in this case, RegularUser.
+Each column has a name,
+Email BirthDate, Hometown,
+Salary, each one of the columns has a data type.
+In this case, emails are represented by varchar(50), variable length character strings maximum length 50.
+BirthDate is represented over datetime.
+Hometown, again over varchar 50.
+Salary is represented over the data type integer.
+A table is set to have columns.
+In this case there are four columns.
+The number of columns is also called the degree of the table.
+A relation also has a number of rows, in this case, one, two, three, four, five, six, seven rows in the table.
+The table name, column names and data types together constitute the schema of this table.
+The schema represents aspects of the data that are stable over time.
+In other words, the schema is not expected to change.
+The state of the database represented by the rows in the table reflect aspects that are dynamic and change overtime.
+So the idea is that whereas the schema in general represents the structure of data, the rows will represent what is the current state of reality that's modeled by this table.
+Database Management Systems are good at supporting data intensive applications.
+Think about the following distinction.
+Some applications are data intensive, some are processed intensive.
+Database Management Systems are good at data intensive applications.
+Data-intensive applications are those where a lot of data may flow between memory and secondary storage and where a lot of data may be communicated between the user and the database.
+Databases provide persistent storage of data.
+That means that even if your application is shut down your database is still going to be there tomorrow.
+Databases provide centralized control of data which is important, because it's possible to enforce policies across a database, even when it's distributed.
+Databases allow you to control redundancy.
+You might think that's important, because then we won't waste space on having data represented in many different locations.
+But that's actually not the point.
+The point is that by controlling redundancy, we get some other advantages.
+The most important one of these advantages is that we can control consistency and integrity.
+We'll define these concepts in more detail later, but consistency is the question of whether you can derive contradictions from within the database itself.
+And that is not possible unless you have redundancy.
+Database provide multi-user support, and
+I'm not just thinking about five people sitting in a room sharing one database.
+I'm thinking about systems that would allow tens or hundreds of thousands of users to use the database at the same time.
+Think flight reservation systems, point of sale transaction processing, etc.
+Databases allow you to share data.
+Sharing data is the key behind supporting communications.
+So when you operate from many different places on the same data, and you share data, you are communicating.
+Databases contain their own documentation of the structures of the data and cannot run without that which is a great advantage.
+Data independence is the ability to change the implementation of database to be more efficient without affecting the user interface.
+Next, databases provide control of access and security of the data that's stored in them.
+And finally, databases provide you with backup and recovery utility should the power go or something else happen.
+Having now discussed why models might be useful for us when we want to examine or manage pieces of reality, let us talk about when we want to use a database management system to create and use these models and when we might not want to use a database management system.
+Now let's talk about external schemata.
+So an external schema describes part of the information in the conceptual schema in a form that's convenient to a particular user group's view.
+It is logically derived from the conceptual schema.
+Here's an example of a virtual table that exists in an external schema.
+The name of the virtual table, or the view, is HighPayFemales.
+It is defined as the result of the following query.
+The query selects some of the columns of the conceptual schema table, so it selects email, maiden name, current city, from regular user, where the city equals female and the salary is greater than 70K, and it orders it by maiden name.
+The create view statement creates the virtual table
+HighPayFemales in the external schema.
+So in other words, the virtual table here has attributes, email, maiden name and current city, and the name HighPayFemales.
+It's a virtual table.
+It's a view into the database.
+It never really exists.
+It's just a view or a window into the database.
+Next is the concept of Keys and
+Identifiers.
+Keys are uniqueness constraints.
+If, for example, we decide to make email the primary key of the RegularUser table, that means that there won't be any duplicate email addresses in this table.
+That means that email could be used to uniquely identify regular users.
+In order to do data modeling, we need to talk about a tool called a data model.
+Data models contain formulations to allow us to express data structures, constraints, and operations.
+But there are several additional important aspects
+I want to talk about before we, later on in the course, get into details with the two major data models we're going to talk about, namely, the extended entity relationship model and the relational model.
+And other important aspect I want to briefly talk about, is database architecture.
+So, it turns out that a database and mode of structure of reality act has several layers to it.
+We want to look at what are those layers.
+We also want to take a look at what the architecture of a database management system, to allow us to create such a database, would be.
+Specifically, we will look at the ANSI/SPARC 3-Level database architecture, and the corresponding database management system architecture.
+Finally, I want to mention metadata.
+What it is and why it is so important to make everything else happen in a database.
+And now on to data structures.
+Based on the definition of a database and a Database Management System, we can now identify the three major topics of this course.
+We'll spend substantial amounts of time on data modeling.
+Likewise, we'll spend substantial amount of time on process modeling.
+Finally, we're going to take a look at database efficiency.
+The reason for that is, that it is actually possible to do data modeling just perfectly and process modeling just perfectly.
+But end up with a database application that doesn't run fast enough to be useful.
+Therefore, we need to look at techniques for making databases efficient.
+Based on the example of a map, here's my message to model makers.
+A model is a means of communication.
+The users of a model must have certain knowledge in common in order to be able to communicate through that model.
+So our cover of exams of that where the maps of the world, one was that north is up and other one is true to scale.
+Third one is that the colors have to be right for us to understand what it is that's depicted in the model.
+Remember that a model only emphasizes certain selected aspects of reality.
+Namely those that are useful for the purpose at hand.
+A model is described in some language on the map, we saw a language of symbols, letters, etc., that reflected aspects of reality.
+We all need to agree on and understand what that language is, in order to be able to communicate through that model.
+Also there can be errors on the map.
+There may be things on the map that are simply incorrect, like a road being placed in the wrong location.
+Finally, to enhance the model there may be features in it that do not exist in reality.
+So examples of that would be contour lines on a mountain, the date line, etc.
+Third aspect of a data model, namely operations, let's look at some examples.
+First let me give you an example of database maintenance.
+Here's a statement that would insert an additional row in RegularUser.
+That row would contain information about user11, born in '92, with a home town Atlanta, and salary of $12,500.
+Here's an example of a retrieval of data from the regular user table.
+It has the well known SQL structures select, from, where.
+So in this case, it's the regular user table we select from.
+We select two columns, namely Email and BirthDate.
+This one and this one, so we don't select these two.
+And the condition for selecting the email and birth date is that the hometown is Atlanta and the salary is greater than $12,000.
+So will user1, born in '85, be selected?
+No, because the salary is not greater than $12,000.
+Will user4, '88, with hometown Atlanta, be selected?
+Yes, because the salary is greater than $12,000.
+Will user6, born in '88, be selected?
+Yes, the hometown is Atlanta, and the salary is greater than $12,000.
+Metadata is essential for making everything happen in a database.
+One distinguish between two kinds of metadata.
+One is systems metadata, the other one is business metadata.
+Systems metadata includes where the data came from, how it was changed, how it's stored, how it was mapped, who owns it, who has the right to access it, how has it been used, and usage statistics?
+Business metadata includes, which data is available, where is it located, what does it mean, how can I access it, are there any predefined reports, predefined queries and our current list of data.
+Systems metadata is absolutely critical to make a database management system work and business metadata is absolutely critical for businesses for example, in data warehouse application.
+Late in this course we going to talk about metadata and the use offered in data archival.
+An internal schema describes how information in the conceptual schema is physically represented, in order to get the overall best query performance and update performance on the database.
+So let me illustrate that.
+Again, we have in the middle, the table in our conceptual schema.
+That may be represented, for example, here by a corresponding table in the physical, internal schema.
+It has, in this example here, the same attributes.
+And it may be sorted in some particular way.
+For example, it could be sorted on LastName.
+Now, in the case that there are many queries on Salary, it might be good, and make queries more efficient, if there were an index defined on Salary.
+So we could define an index in a B+-tree, for example, and we'll look at those later on in the course.
+B+-trees create logarithmic time access to data so it would be possible to ask efficiently a query.
+Like the one you just saw before, that defined the external schema, and was based on Salary.
+Furthermore, it might be that we would like to have fast access on CurrentCity.
+And therefore, we could create an additional index on the database on CurrentCity.
+That index would basically be a table with two columns in it.
+One, the list of CurrentCity, and two, pointers to the rows in the database that contain that particular value of CurrentCity.
+Notice that since both the B+-tree here and the index here cannot be seen by way up from the applications, because of that it is possible to replace that, to remove it, to remove this, or to add additional indices, all without affecting the applications that run on the database.
+In spite of the great functionality supported by database management systems, there are some aspects you want to consider before you decide to use a database management system.
+First, the initial investment in hardware, software and training are very high.
+Some database management systems are as big as operating systems.
+The hardware that's needed to run large software systems like that is expensive.
+The amount of time that you put into learning how to learn databases well is considerable.
+It might also be the case that the generality that database management software provides you with is not needed.
+Let me give you some examples.
+There's substantial overhead for security, concurrency control, and recovery in a database system.
+Maybe you don't need that level of security.
+Maybe you don't need a large set of concurrent users.
+Maybe recovery is not that important.
+Maybe you don't need data independence because your data and your applications are simple and stable.
+Maybe you have an application with serious real time requirements.
+If the database management system can't run fast enough to meet those, then it's useless.
+Again maybe multiuser access is not needed, so concurrency control is not needed
+Let us now look at null values.
+I've added a couple of columns namely MaidenName and
+Sex to illustrate the issue.
+Take a look at user3, user3's current last name is Fulton, her maiden name was Jones.
+And yes, she is a female.
+Let's look at user2.
+User2 is also a female.
+Her last name is Smith.
+But at this point in time we do not know what her maiden name is.
+However, it's very important to know this.
+That the concept of maiden name certainly applies, because Smith is a female.
+We just don't know what it is right now.
+So this is a null value UNKNOWN.
+Let's look at user1.
+User1 is a male, user1's last name is is Christensen.
+That means that maiden name does not apply and you have a null value inapplicable.
+So null value UNKNOWN is okay.
+It would be desirable to have a value, but it's okay.
+Null value INAPPLICABLE is not okay.
+It means that we have designed a table in such a manner that several of the rows are not going to have INAPPLICABLE value for some of the columns.
+Not very good.
+How can that happen?
+It could happen for example if you lay out a table to reflect catch all forms.
+So be very careful, catch all forms are great in reality.
+Simplifies which forms you have to keep in stock and which forms people have to fill out.
+Think for example, about your favorite form in the world, your 1040.
+It has a lot of fields on it.
+Some of them apply to you, some of them do not apply to you.
+Just because a catch all form has a number of fields on it does not mean that you design one table with all those fields on it.
+The three levels in the part architecture provides for two types of independence.
+One is called physical data independence, and is a measure of how much you can change the internal schema representation of a database without changing or affecting the applications that one on the external schema.
+Database technology allows you to make that separation almost perfect.
+It is very similar to the idea of object oriented programming that supports encapsulation, where the implementation of a class can be changed without affecting the applications that access the class through its methods.
+Constraints represent rules that cannot be expressed by the data structures we just looked at.
+Let me give you some examples.
+First, we might want emails to be unique as they are in this example here.
+That would allow us to think about emails as representing unique regular users.
+So for each user out in the real world there's a corresponding row in this table here.
+For example this one user3, born in 1967, hometown Portland, salary 12,000, represents a unique user in reality.
+It wouldn't make sense to allow emails to be null in this case because that really doesn't represent anything.
+We might also have a constraint that says that birth date must be after the first day of 1900.
+Finally, we might have a constraint that says that hometown must be a city in the United States.
+Notice that none of these constraints are expressed by the table structure or the data types that the column values are pulled from.
+That's why I'm saying that constraints express rules that are not expressed by the data structures alone.
+Is a somewhat different rendition of what I just described to you.
+In this, DBA staff includes the three human roles that I described for you before.
+The role defined conceptual schema, internal schema, and external schema.
+That's done through the DDL, or data definition language, with statements that basically define them, and the DDL compiler will compile them and store them in the metadatabase.
+With that in place a casual user can now write an interactive query.
+That query is processed by a query compiler.
+It is optimized to find an efficient way to execute it and it's given as a DBA command to the one time database processor, which will execute it together with other queries on the database.
+Looking at application programmers, they can write application programs, which consist of host language code with embedded database access.
+That code is passed to a precompiler and out of the precompiler comes two things.
+Number one, the host language code and number two, the database queries or database manipulation language statements.
+Those DML statements, are then compiled and optimized and then combined with the complied host link which code in this complied transaction.
+The compiled transactions are sent tot the database and execute by the run time, data base process on.
+Since there may be many concurrent users on the database, a concurrency control sub-system make sure that all these competing transactions and queries on the database are executed in a proper order.
+Now let's look at a more detailed example of a map, namely a map of the city of Atlanta, in the Peach State of Georgia.
+What do we see on this map?
+Well, we see a lot of interstates here,
+285 is part of the interstate system.
+You see 85 coming down from northeast.
+You see 75 coming down from northwest.
+You see I-20 going east to west.
+There are other smaller roads like, take a look at this yellow one here.
+There's all the major roads, like this green one here is Georgia 400 but it's a different color from the interstates.
+There's some neighborhoods pointed out like east point here, and as you can see there's an alphabet that's used to your language, that's used here to illustrate to you what reality looks like.
+And in that language, different kinds of roads have different colors to let you know what they are.
+You have letters available to spell names of places.
+You've got symbols available to illustrate there might be a forest there.
+It's important to understand that there might be errors in the model.
+So for example, if I were to draw the following line here, for example from here to here, and pretend that's a road, that road probably doesn't exist in reality.
+So that's an error.
+There might be things on a map like contour lines for example, county lines that are useful when you use the map.
+But really, they don't represent something, which is physically present in reality.
+On this map here I haven't even mentioned the fact that North is up and it's true to scale.
+And those were things that users must have in common in order to be able to communicate through this map.
+Now let me illustrate to you why using a map might be a better idea than experimenting with a reality model itself.
+So let's say I'm going to launch on The Varsity, start out here Georgia Tech and
+I can see I gotta cross the interstate, and go south about a half a mile to get to The Varsity on the right.
+I actually wouldn't necessarily need a map, the only thing I would need to get to The Varsity is the following, I would need to know that 285 goes all the way around the city, and
+The Varsity is located inside the city.
+So I could start from Georgia Tech with a big stack of paper and a couple of pencils and just keep an eye on every single road I try, if I get to 285 turn around, do something else.
+Try to minimize the number of times I go on the same road.
+There's a finite number of miles of roads inside of the perimeter so eventually I will get to The Varsity.
+It may not be today, but I will get there.
+So you don't always need a map.
+[SOUND]
+In process modeling we aim at fixing and representing a perception of processes of reality.
+As opposed to the structures processes are not represented inside the database, rather they are reflected in a way we use the database through the database management system.
+There are two ways in which we can use the database through the database management system.
+One is to embed data manipulation language code inside a program, the other one is to use the data manipulation language directly to issue ad-hoc queries on the database.
+Let's take a look at what that means.
+If we have program that builds, for example, a user interface, if you have a program that builds an interface for an application, then inside of that program it is possible to have data manipulation link with statements that accesses a data base, either to up take the data, or to retrieve the data and to display it back through the interface.
+Alternatively, it is plausible to use the data manipulation language directly to do ad hoc queries on the database, or ad hoc updates and maintenance of the database.
+The data manipulation language we are going to use in this course is going to be SQL.
+You're going to spend major amounts of time in the course learning how to build programs like this and how to embed in them SQL statements to manipulate and maintain the database.
+Integrity and consistency are two highly desirable properties of databases.
+To give you a really great example of integrity I have a confession to make.
+This is how you know me now.
+I'm Leo Mark.
+My confession is I am really working undercover.
+Leo Mark Christenson, that is who I really am.
+Why?
+Born in Denmark lot of people with last name Christenson, first day of first grade, 21 students.
+There were three with last name Christenson, and two with first name Leo.
+>From that day on I became Leo Mark.
+Integrity has to do with whether the database reflects reality well.
+Consistency has to do with whether the database is without any internal conflicts in it.
+Let's take a look at an example here.
+So we have our regular user table.
+The regular user table has email, birthday, name, and it has current city in it.
+Then we have a user table.
+And in the user table, we have emails and we have address.
+So let us first talk about consistency.
+Take a look at User 1.
+The current city of User 1 is recorded as Atlanta, but the address of User 1 is 123 Kent Rd, in Roswell.
+There seems to be inconsistency between these two.
+Let's take a look at another one.
+So User 4, current city is Atlanta.
+But address is 789 1st St, Roswell.
+Again, there appears to be inconsistency.
+User 5, that information may be okay.
+User 6, that information may be okay.
+However, since User 1 and
+User 4 seem to have inconsistency, and in general we don't know when that inconsistency appears, this database cannot be used to answer the question of where does a user live.
+The problem here of course is that there's some redundancy between where a current city is.
+And what an address is.
+Now, let's turn our attention to an example of integrity.
+So you all now know that my full name is Leo Mark Christensen.
+User 4 here actually happens to be my daughter.
+Louise Mark Christensen, funny name.
+She's born in Denmark.
+In Denmark children inherit both the last name and the middle name of the father.
+So my daughter's cross to bare in life is that she has a boys name for a middle name.
+So on the morning of her 18th birthday, the extended family is gathered in the kitchen for breakfast and the phone rings.
+A man's voice on the other ends asks, is Louis Mark present?
+So I hand the phone to my daughter.
+She answers several questions, first yes, no, and then certainly not, then she hangs up the phone.
+Who do you think called?
+Well, the military called, and the first question was, are you Louis Mark?
+She answers yes.
+Second question was, have you signed up for services?
+The answer, of course, is no.
+And the final question was, are you not a male?
+So the problem in this database here is that an inference was made that someone with the name Louise or Louis or whatever, Mark certainly must be a male.
+And therefore this person should have signed up for services.
+Bad integrity.
+A data model is not the same as a model of data.
+We define the database to be a model of structures of reality.
+A data model is the tool or the formulas that we use to create such a model.
+We should always be talking about the following three elements, when talking about a data model.
+Data structures, integrity constraints and operations.
+Let me mention three examples of data models.
+The first one is the entity relationship model.
+We will use this model to fix a perception of reality in this course.
+Second is the relational model which we will use to implement that model in a database management system.
+Third let me mention the Hierachical Model.
+The Hierarchical Model was the one implemented in the first data base system the IBMIMS data base system back in 1967.
+Interestingly the Hierarchical Model is also the fundamental model on the XML data bases today.
+So why use models at all?
+Let me give you a couple of observations.
+First, models can be useful when we want to examine or manage part of the real world.
+Second, the costs of using a model are often considerably lower than the costs of using or experimenting with reality itself.
+Let me give you som examples of models of reality.
+We're going to be using a map to talk about several important aspects of models of reality.
+There are many other examples, however.
+How about a model of US economy?
+Such a model would presumably allow us to plug in ideas of new laws, etc., and find out how they would affect the economy.
+One fundamental problem here would have caused B, can we agree on how to build that model.
+A second example is that of a tsunami warning system, a system that would allow us to save human lives, livestock, etc.
+Another example is that of traffic simulation.
+Traffic simulation can be used when we want to make decisions about where to build roads.
+Let us first talk about data modeling.
+A model represents a perception of structures of reality.
+The data modeling process has two steps to it.
+First, we need to fix a perception of structures of reality.
+And second, we need to represent that perception.
+Database people use two different languages for this.
+One language is the extended entity relationship model.
+Which is good for fixing a perception of structures of reality.
+And second, the relational model is good for representing this perception inside a database.
+In the data modeling process we select aspects of reality that are important to us while ignoring others and we use abstraction to organize these aspects.
+Logical data independence is a measure of how much you can change the conceptual schema without changing the applications that run on the database over the external schema.
+It is more difficult to provide logical data independence than it is to provide physical data independence.
+The reason is that the external schemata against which the applications are written.
+Those external schemata are logically derived from the conceptual schema.
+So needless to say if you have an application that accesses a table in an external schema and you go change that table in the conceptual schema then it is plausible that the application will be effected.
+Everything is a thing, and some things are just that, things, let me give you some examples.
+So there's the pen I'm using here, that's a thing it's not a name for anything.
+There's the tablet I'm doing the reporting on here, that's a thing, not a name for anything.
+There's the camera that's being used to record the hand and the writing, that's a thing, not a name for anything.
+But then, there are some things that also are names of things, when I say names, I mean names in a very general sense, let me give you some examples.
+The text string Leo is a thing, but it is also my first name, the text string GTo1 is a text string, which is the name on my license tag.
+And the text string 49 is a thing which is the name of my age.
+Let's say we have a set of regular users in reality and we would like to record email and name and address for them.
+So we create a table in the database with the columns email, name, and address.
+Now let's take a look at one of the rows in that table, the user one,
+Lisa Smith, lives in Roswell.
+Now if you look at the database a couple of days later, it may say user one,
+Lisa Jones, live in Roswell, what happened?
+Is that the same User, yes it probably is, Lisa probably just got married to Mr. Jones and she changed her last name, but it's still the same Lisa.
+Couple of days later you take a look again it says user one, Lisa Jones, but now the address is
+Atlanta instead of Roswell.
+Is it still the same Lisa?
+It probably is, she probably decided to move to Atlanta with her new husband,
+Mr. Jones.
+Few days later, you look in the database, and it says user two,
+Lisa Jones Atalanta.
+Now is that the same Lisa or is that a different Lisa who lives in Atlanta?
+That's a difficult question to answer, this type of representation is called Name-Base representation.
+In a Name-Base representation, you are what is known about you, no more, no less.
+Now let's consider an alternative way of doing this, so we have regular users, we would like to record email, name, and address.
+However, this time, instead of just having the three columns, email, name, and address, in the regular user table, we add an extra column, user, for system generated unique identifiers.
+These are also called surrogates, they represent, inside the system, they represent the users out in the real world.
+So for each instance of user out in the real world, you have a surrogate or substance inside the database to represent that user in the real world, now, let's reconsider then Lisa.
+You have an identifier for
+Lisa, a surrogate for
+Lisa, that surrogate never changes then, you have her email user one,
+Lisa Smith or Lisa Jones,
+Roswell or Atlanta.
+In every single case you can decide whether the user is the same by determining whether the internal system generated surrogate is the same or not.
+You can ask, is this the same user?
+This even allows email to be changed and you to be able to recognize whether or not it is the same user.
+So the problem with this representation here in the name-base representation is that a thing is what we know about it and we have used here something to identify things out in reality.
+But email can change,
+Social Security Numbers can change.
+In this representation here, the surrogate-base representation, it recognizes that regardless of what we know about something and what the values are, the thing still exists.
+[FOREIGN] as Kant stated.
+So, now let's look at the career transformer.
+So, a person acting in the role of user can now express careers on the database using this language interface number 12.
+We previously talked about two different ways that could be done.
+The user could write ad hoc queries, and those ad hoc queries would then be translated down through the levels, executed on data, and an answer would come back to the user.
+Or as we saw, the user, or a programmer implementing a user interface would include access to the database inside some host language code.
+And when, in the execution of that program, the database access statements are met, then they are sent down through the translation, evaluated and an answer comes back up to the application program.
+So let's talk about these translations here.
+So, here's a database query expressed in this interface.
+The external to conceptual schema and transformer will read the metadata which describes what the external schema looks like and describes what the conceptual schema looks like.
+And we're using that information from the meta database, coming through into phase 36 here, will translate the query that was issued in interface 12, to a query expressed in interface 31.
+Likewise, the conceptual to internal transformer will read the conceptual schema definition and the internal schema definition through interface 36, and translate the query from a query here at this level, to a query here at this level in interface 30.
+And finally, the internal schema to storage transformer will read the internal schema definition here through interface 34, translate the query to be one from over the internal schema to one that's under the internal schema and over the data.
+So, this is essentially the operating system level here, the language 21.
+And through operating system calls, our database calls, the operation would be executed on the database.
+The result will come back from the operating system, and again in the same way, will be translated back through the levels.
+And returned as an answer to the query, or the external schema that the user is accessing the database through.
+If this process took place every single time there's a query that's executed on the database, the database would be incredibly inefficient.
+Therefore, it's actually done slightly different.
+But the functionality of what happens is exactly what I have just described.
+So let's talk about the conceptual schema.
+The conceptual schema describes all conceptually relevant, general, and time-invariant structural aspects of reality.
+It describes nothing related to data representation, physically organization, access, or use.
+Here's an example, you have the RegularUser table with Email,
+BirthDate, Hometown, LastName,
+MaidenName, Sex, and Salary.
+At the conceptual level, the only thing that's visible to the query language is this table and the columns in it.
+So you could for example write a query, select Email, BirthDate and MaidenName from regular user, where Sex='F' and
+Salary is greater than 70,000.
+You cannot in that query include anything about how the results are displayed other than in this order, or how the data is accessed.
+In this lesson we are going to provide a high level overview of what a database is.
+We are going to define a database as a model of reality.
+That raises two important questions.
+First question is why use models at all?
+What is so special about models?
+And the second questions is so if we do want to use models, when exactly is it that we would like to use a Database Management System to create such a model?

@@ -183,7 +183,6 @@ Temporary Items
 .apdisk
 
 .idea/
-data_in/
 data_out/*
 checkpoint/
 logs/
